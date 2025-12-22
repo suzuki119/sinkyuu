@@ -1,0 +1,1081 @@
+@use "sass:math";
+
+// --- Colors ---
+$color-text: #F2F2F2;
+$color-bg: #e6e6e6;
+$color-base: #7CCDFF;
+$color-main: #FFE5B5;
+$color-accent: #FCFF54;
+$color-white: #FFF;
+$color-text-dark: #000;
+
+$font-primary: "Tsukushi B Round Gothic",
+    sans-serif;
+$font-text: "Zen Kaku Gothic Antique",
+    sans-serif;
+
+
+
+// --- Breakpoints ---
+$breakpoints: (
+    mobile: 375px,
+    tablet: 768px,
+    desktop: 1100px
+);
+
+// --- Spacing ---
+$space-xs: 0.25rem; // 4px
+$space-s: 0.5rem; // 8px
+$space-m: 1rem; // 16px
+$space-l: 1.5rem; // 24px
+$space-xl: 2rem; // 32px
+$space-xxl: 2.5rem; // 40px
+$space-xxxl: 3rem; // 48px
+
+@mixin mq($breakpoint: desktop) {
+    @media (min-width: map-get($breakpoints, $breakpoint)) {
+        @content;
+    }
+}
+
+@function rem($px-value) {
+    @return #{math.div($px-value, 16)}rem;
+}
+
+@mixin title() {
+    font-family: $font-primary;
+    margin-bottom: rem(80);
+    font-weight: bold;
+    font-size: rem(38);
+    text-align: center;
+    color: $color-text-dark;
+    paint-order: stroke;
+
+}
+
+
+@mixin inner($mw: 1000px, $w: 90%) {
+    max-width: $mw;
+    width: $w;
+    margin-left: auto;
+    margin-right: auto;
+
+    @include mq(desktop) {
+        width: 70%;
+    }
+}
+
+@keyframes up {
+    0% {
+        transform: translateY(rem(550)) rotate(0deg);
+        opacity: 0;
+    }
+
+    10% {
+        opacity: 0.7;
+    }
+
+    80% {
+        opacity: 0.6;
+    }
+
+    100% {
+        transform: translateY(-80vh) rotate(var(--rotate));
+        opacity: 0;
+    }
+}
+
+
+
+
+img {
+    max-width: 100%;
+    vertical-align: middle;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    overflow-x: hidden;
+    font-family: $font-text;
+    font-size: rem(16);
+    color: $color-text-dark;
+    line-height: 2;
+    letter-spacing: 0.1em;
+    background-color: $color-base;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+.global {
+    align-content: center;
+}
+
+
+.hamburger {
+    position: relative;
+    z-index: 200;
+    display: grid;
+    grid-auto-flow: row;
+    row-gap: rem(10);
+    cursor: pointer;
+
+    &__span {
+        width: rem(70);
+        height: rem(12);
+        border-radius: rem(12);
+        background-color: #002756;
+        transition: all 0.2s;
+        z-index: 2;
+    }
+}
+
+.logo {
+    width: 40%;
+    max-width: rem(250);
+    display: inline-block;
+    position: relative;
+    z-index: 200;
+}
+
+.linkBtn {
+    color: $color-white;
+    display: block;
+    position: relative;
+    text-align: center;
+    align-content: center;
+    width: rem(300);
+    height: 75px;
+    font-size: $space-xl;
+    font-weight: bold;
+    margin: 0 auto;
+    border-radius: $space-xxl;
+    background-color: #DF0000;
+    border: $color-white 4px solid;
+    font-family: $font-primary;
+
+}
+
+/* ベース状態の線 */
+.hamburger__span {
+    width: rem(50); // ✗にするとき大きすぎるので最適化
+    height: rem(6);
+    border-radius: rem(3);
+    background-color: #002756;
+    transition: all 0.5s ease;
+    transform-origin: center;
+}
+
+/* アクティブ時 = ✗ マーク */
+.hamburger.active .hamburger__span:nth-child(1) {
+    transform: translateY(rem(16)) rotate(45deg);
+}
+
+.hamburger.active .hamburger__span:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger.active .hamburger__span:nth-child(3) {
+    transform: translateY(rem(-16)) rotate(-45deg);
+}
+
+
+.header {
+    &__inner {
+        @include inner();
+        display: flex;
+        justify-content: space-between;
+    }
+
+    width: 100%;
+    position: fixed;
+    z-index: 30;
+    padding: 30px 0;
+    background-color: rgba($color-bg, 0.7);
+}
+
+.menu {
+    position: fixed;
+    pointer-events: none;
+    text-align: center;
+    height: 100vh;
+    width: 100%;
+    left: 0;
+    overflow-y: auto;
+    background-color: $color-base;
+    top: -100%;
+    transition: all 0.6s ease-in-out;
+    box-sizing: border-box;
+    z-index: 5;
+    padding-bottom: rem(50);
+
+    &.active {
+        top: 0;
+        padding-top: rem(200);
+        pointer-events: all;
+    }
+
+    &__inner {
+        display: grid;
+        grid-auto-flow: row;
+        row-gap: rem(50);
+        font-family: $font-primary;
+        font-size: rem(24);
+        font-weight: bold;
+        width: 80%;
+        margin: 0 auto;
+
+        & ul {
+            display: grid;
+            grid-auto-flow: row;
+            row-gap: rem(20);
+            border-bottom: $color-white solid;
+
+            padding-bottom: rem(50);
+
+
+            & a {
+                transition: all 0.5s linear;
+            }
+
+            & a:hover {
+                color: $color-accent;
+            }
+
+
+        }
+    }
+}
+
+
+
+.mainvisual {
+    position: relative;
+    background-color: $color-main;
+    padding: 270px 0;
+
+    /* 追加 ------------------------ */
+    overflow: hidden; // ← これで落下アニメが外に出ない
+    /* -------------------------------- */
+
+    &__image-group {
+        display: block;
+
+        &__image {
+            border-radius: 50%;
+            position: absolute;
+            width: 40%;
+            aspect-ratio: 1;
+            object-fit: cover;
+            opacity: 0;
+            overflow: hidden;
+            will-change: transform, opacity;
+            background-color: #007ecc;
+
+        }
+    }
+
+    &__title {
+        font-family: "Tsukushi B Round Gothic", sans-serif;
+        font-weight: bold;
+        color: #007ecc;
+        font-size: 32px;
+        position: relative; // ← これが超重要
+        z-index: 2; // ← 画像より前面へ
+        text-align: center;
+        padding: 100px 0;
+        background-color: $color-white;
+        text-shadow: 2px 2px 5px #c6c6c6;
+
+        &::before {
+            content: "";
+            position: absolute;
+            top: -30px;
+            left: 0;
+            width: 100%;
+            height: 30px;
+            background: url("../img/svg/nami_1.svg") repeat-x center top;
+            background-size: 50%;
+
+            transform: rotate(180deg);
+        }
+
+        // 下の波
+        &::after {
+            content: "";
+            position: absolute;
+            bottom: -30px;
+            left: 5%;
+            width: 100%;
+            height: 30px;
+            background: url("../img/svg/nami_1.svg") repeat-x center top;
+            background-size: 50%;
+        }
+    }
+}
+
+
+.about {
+    margin-top: rem(250);
+    position: relative;
+    overflow: hidden;
+    background-color: $color-main;
+    padding-top: rem(100);
+    padding-bottom: rem(200);
+    margin-bottom: rem(250);
+
+    &__inner {
+        position: relative;
+        z-index: 2; // ← これでテキストを前面に
+    }
+
+    &::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background-image:
+            url("../img/image/28.jpg");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        filter: blur(3px);
+        transform: scale(1.1); // ぼかしによる欠け防止
+        z-index: 0;
+    }
+
+    &::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.2); // ← 暗さ（0.4〜0.6くらいがちょうどいい）
+        z-index: 1;
+    }
+
+    &__title {
+        font-family: "Tsukushi B Round Gothic", sans-serif;
+        font-weight: bold;
+        color: $color-white;
+        font-size: 32px;
+        text-align: center;
+        margin-bottom: 100px;
+        text-shadow: 2px 2px 5px #272727;
+    }
+
+    &__textbox {
+        display: block;
+        max-width: rem(500);
+        width: 100%;
+        font-family: $font-text;
+        padding: 18px 50px;
+        border-radius: rem(30);
+        background-color: rgb($color-bg, 0.8);
+        white-space: pre-line;
+        color: $color-text-dark;
+        margin: 0 auto;
+    }
+}
+
+.vision-example {
+    margin-bottom: rem(250);
+
+    &__title {
+        @include title();
+
+    }
+
+    &__image-area {
+        position: relative;
+        height: rem(700);
+        width: 100%;
+        background-color: $color-white;
+
+        & img {
+            width: 100%;
+            height: 80%;
+            max-width: rem(600);
+            position: absolute;
+            object-fit: cover;
+            transition: all 0.5s;
+            left: 50%;
+            top: 10%;
+            transform: translateX(-50%);
+
+        }
+    }
+}
+
+.appointment-ex {
+    margin-bottom: rem(250);
+
+    &__inner {
+        @include inner();
+        text-align: right;
+        max-width: rem(1000);
+    }
+
+    &__title {
+        @include title();
+    }
+
+    &__textbox {
+        display: block;
+        text-align: left;
+
+        width: 100%;
+        font-family: $font-text;
+        padding: 18px 50px;
+        border: $color-text-dark 3px solid;
+        border-radius: rem(30);
+        background-color: $color-white;
+        white-space: pre-line;
+        color: $color-text-dark;
+        margin: 0 auto;
+    }
+
+    &__link {
+        display: inline-block;
+        margin-top: rem(10);
+        margin-bottom: rem(130);
+        border-bottom: #000 solid;
+    }
+
+    &__fee {
+        margin-top: rem(100);
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        column-gap: rem(50);
+        text-align: left;
+
+        & ul {
+            list-style: disc;
+            background-color: $color-white;
+            display: grid;
+            row-gap: rem(30);
+            border: $color-text-dark 3px solid;
+            border-radius: rem(30);
+            padding: rem(30);
+
+        }
+    }
+
+}
+
+
+.news {
+    margin-bottom: rem(250);
+    width: 100%;
+
+    &__inner {
+        @include mq(desktop) {
+            @include inner();
+        }
+
+    }
+
+    &__title {
+        @include title();
+    }
+
+
+
+    &__box {
+        margin-left: 5%;
+        display: grid;
+        grid-auto-flow: column;
+        overflow-x: auto;
+        column-gap: rem(20);
+        margin-bottom: rem(100);
+
+        @include mq(desktop) {
+            margin-left: 0;
+
+        }
+
+        & a {
+
+            & article {
+                width: rem(300);
+
+                @include mq(desktop) {}
+
+
+            }
+        }
+
+    }
+
+    &__textbox {
+        background-color: $color-white;
+        height: rem(200);
+        overflow: scroll;
+    }
+
+    &__imgbox {
+
+
+        & img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+    }
+}
+
+.news-archive {
+    padding: rem(250) 0;
+    width: 100%;
+
+    &__inner {
+        @include inner();
+    }
+
+    &__title {
+        @include title();
+    }
+
+    &__grid {
+
+        display: grid;
+        grid-auto-flow: row;
+        column-gap: rem(20);
+        row-gap: rem(20);
+        margin-bottom: rem(100);
+
+        @include mq(desktop) {
+            grid-template-columns: repeat(3, 1fr);
+
+        }
+
+        & a {
+
+            & article {
+                width: 100%;
+                max-width: rem(600);
+                margin: 0 auto;
+
+                @include mq(desktop) {
+                    max-width: rem(300);
+                }
+
+                & img {
+                    width: 100%;
+                    height: 400px;
+                    object-fit: cover;
+
+                    @include mq(desktop) {
+                        height: 200px;
+                    }
+                }
+            }
+        }
+
+    }
+
+    &__textbox {
+        background-color: $color-white;
+        height: rem(200);
+        overflow: scroll;
+    }
+
+
+
+
+}
+
+.footer img {
+    width: 100%;
+
+}
+
+.footer {
+
+    background-color: #1C5E75;
+    color: $color-white;
+    padding: rem(100) 0;
+    text-align: center;
+
+    &__inner {
+        @include inner();
+
+    }
+
+    &__media {
+        max-width: rem(500);
+        margin: 0 auto;
+        display: grid;
+        grid-auto-flow: row;
+        row-gap: rem(50);
+
+        & a {
+            transition: all 0.5s linear;
+        }
+
+        & a:hover {
+            transform: scale(105%);
+
+        }
+
+
+        &__SNS {
+            display: grid;
+            grid-auto-flow: column;
+            column-gap: rem(50);
+            align-items: center;
+
+            & .insta {
+                display: block;
+                width: 40%; // 画像と同じ幅に揃える
+                margin: 0 auto;
+            }
+
+            & .insta img {
+                width: 100%; // 親要素いっぱいに広げる
+                height: auto;
+            }
+
+        }
+    }
+
+    &__fnav {
+        display: grid;
+        text-align: center;
+        grid-auto-flow: column;
+        margin: rem(100) 0 rem(100) 0;
+
+        & ul {
+            display: grid;
+            border-right: $color-white solid;
+            border-left: $color-white solid;
+            padding: 0 rem(20);
+            grid-auto-flow: row;
+            row-gap: rem(40);
+
+            & a {
+                transition: all 0.5s linear;
+            }
+
+            & a:hover {
+                color: $color-accent;
+            }
+        }
+    }
+
+    &__copy {
+        font-size: rem(12);
+        font-weight: bold;
+    }
+
+    &__info {
+        border-radius: rem(20);
+        border: $color-white 2px solid;
+        text-align: left;
+        padding: rem(30);
+        line-height: 3;
+    }
+}
+
+
+.appointment {
+
+    padding: rem(250) 0;
+
+    &__inner {
+        @include inner();
+    }
+
+    &__title {
+        @include title();
+    }
+
+    &__toggleBtn {
+        margin-top: rem(30);
+        cursor: pointer;
+    }
+
+    &__list {
+        display: grid;
+        grid-auto-flow: row;
+        row-gap: 50px;
+        text-align: center;
+
+
+
+        & p {
+            position: relative;
+            display: inline-block;
+            text-align: left;
+            padding-left: 50px;
+
+            &::before {
+                position: absolute;
+                content: "";
+                left: 0;
+                display: block;
+                width: 30px;
+                height: 30px;
+                border-radius: rem(5);
+                transition: all 0.4s linear;
+                background-color: $color-accent;
+
+                &:hover {
+                    transform: rotate(135deg*2+45);
+                    background-color: $color-white;
+                }
+            }
+        }
+
+
+    }
+
+    &__others {
+        text-align: right;
+
+        &__textbox {
+            text-align: left;
+            background-color: $color-white;
+            display: flex;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease, padding 0.5s ease;
+            background: #f0f0f0;
+            padding: 0 1rem;
+            justify-content: space-between;
+            margin-bottom: rem(150);
+
+            & ul {
+                display: grid;
+                row-gap: rem(30);
+                list-style: disc;
+
+            }
+
+            &.show {
+                max-height: 700px;
+                padding: rem(40);
+            }
+        }
+    }
+
+}
+
+.contact-form {
+    margin-bottom: rem(50);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.form-item label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+.form-item input,
+.form-item textarea {
+    width: 100%;
+    padding: 10px;
+    background-color: $color-white;
+    border: 1px solid $color-text-dark;
+    border-radius: 6px;
+    font-size: 16px;
+}
+
+.form-item textarea {
+    height: 150px;
+    resize: vertical;
+}
+
+.form-submit {
+    display: block;
+    text-align: center;
+    width: rem(100);
+    padding: 12px 20px;
+    background-color: $color-white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+.form-submit:hover {
+    opacity: 0.8;
+}
+
+
+
+
+
+
+
+
+.root {
+    padding: rem(250) 0;
+
+    &__inner {
+        @include inner();
+    }
+
+    &__title {
+        @include title();
+    }
+
+    &__image {
+        width: 90%;
+        margin: 0 auto;
+        margin-bottom: rem(150);
+
+    }
+
+    &__textbox {
+        margin-top: rem(100);
+        background-color: $color-white;
+
+        padding: rem(50);
+    }
+
+
+
+
+
+
+
+
+
+}
+
+
+.spot {
+    padding: rem(250) 0;
+
+    &__inner {
+        @include inner();
+        display: grid;
+        row-gap: rem(100);
+    }
+
+    &__title {
+        @include title();
+    }
+
+    & .unit {
+        border-top: $color-white dotted 3px;
+        padding-top: rem(80);
+
+        &__title {
+            @include title();
+        }
+
+        &__box {
+            background-color: $color-white;
+
+            padding: 10%;
+            border-radius: rem(50);
+            max-width: rem(800);
+            margin: 0 auto;
+            text-align: center;
+        }
+
+
+        &__img {
+
+            width: 100%;
+            height: rem(500);
+            max-width: rem(500);
+            object-fit: cover;
+
+            @include mq(desktop) {
+
+                height: rem(800);
+
+            }
+
+        }
+
+        &__textbox {
+            text-align: left;
+            margin-top: rem(70);
+            padding: rem(18);
+            border-radius: rem(20);
+            border: $color-base solid 5px;
+        }
+    }
+
+}
+
+.access {
+    padding: rem(250) 0;
+
+    &__inner {
+        @include inner();
+
+    }
+
+    &__title {
+        @include title();
+    }
+
+    &__information {
+        background-color: $color-white;
+        padding: rem(30);
+        border-radius: rem(30);
+
+        & ul {
+            display: grid;
+            row-gap: rem(20);
+        }
+    }
+}
+
+.info {
+    padding: rem(250) 0;
+
+    &__inner {
+        @include inner();
+
+    }
+
+    &__title {
+        @include title();
+    }
+
+    &__gmap {
+        position: relative;
+        width: 100%;
+        border: $color-white dotted 5px;
+        padding-top: 56.25%;
+        /* 16:9のアスペクト比の再現 */
+        height: 0;
+
+        & iframe {
+            position: absolute;
+            top: 2.5%;
+            left: 2.5%;
+            width: 95%;
+            height: 95%;
+
+        }
+    }
+}
+
+
+
+
+
+.qa {
+    padding: rem(250) 0;
+
+    &__inner {
+        @include inner();
+
+    }
+
+    &__title {
+        @include title();
+    }
+
+
+    &__group:nth-child(even) {
+        margin-bottom: rem(125);
+        padding-bottom: rem(125);
+        border-bottom: $color-white dotted 3px;
+    }
+
+
+    & .item {
+        display: grid;
+        grid-auto-flow: row;
+        row-gap: rem(50);
+
+
+
+        &__qanda {
+            display: grid;
+            grid-template-columns: 1fr 3fr;
+            column-gap: rem(20);
+        }
+
+
+        &__textbox {
+            background-color: $color-white;
+            padding: rem(40);
+            position: relative;
+            align-content: center;
+
+            & a {
+                border-bottom: $color-text-dark solid;
+            }
+
+            border-radius: rem(30); // ← 円ではなく角丸四角に
+
+            &::after {
+                content: "";
+                position: absolute;
+
+                width: rem(30);
+                height: rem(30);
+
+                background-color: $color-white;
+                transform: rotate(45deg);
+
+                left: rem(-10); // ← 少し外に出す
+                top: 15%;
+            }
+        }
+
+        &__imgbox {
+            align-content: top;
+            text-align: center;
+            max-width: rem(200);
+
+            & img {
+                width: 70%;
+            }
+        }
+    }
+
+}
+
+
+.single-news {
+    padding: rem(250) 0;
+
+    &__title {
+        @include title();
+    }
+
+    &__date {
+        display: block;
+        font-size: 0.9rem;
+        opacity: 0.7;
+        margin-bottom: 30px;
+    }
+
+    &__thumb img {
+        width: 100%;
+        height: auto;
+        max-width: rem(800);
+        margin-bottom: 40px;
+    }
+
+    &__contents {
+        padding: rem(50) 5%;
+        text-align: center;
+        line-height: 1.8;
+        background-color: $color-white;
+
+        & .content {
+            max-width: rem(800);
+            margin: 0 auto;
+
+            & p {
+                max-width: rem(800);
+                text-align: left;
+            }
+        }
+
+    }
+
+}
