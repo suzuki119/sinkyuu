@@ -5,7 +5,4 @@
     <p>ここは記事の本文が入る予定の場所です</p>
 </main>
 
-<?php
-// ここにfooter.phpを作ってincludeしてもOK
-echo "</body></html>";
-?>
+<?php include('footer.php'); ?>

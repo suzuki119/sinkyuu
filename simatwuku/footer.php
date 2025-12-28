@@ -54,8 +54,11 @@
 
             </nav>
 
-            <small class="footer__copy">©Ajihama All Rights Reserved.</small>
             <script type="text/javascript" src="https://cache1.value-domain.com/xa.j?site=simatwuku.s323.xrea.com"></script>
+
+            <div class="footer__copy"><small>©Ajihama All Rights Reserved.</small></div>
+
+
 
 
         </div>

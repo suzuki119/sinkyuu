@@ -12,4 +12,5 @@
         <nav>
             <a href="<?php echo SITE_URL; ?>/index.php">ホーム</a>
         </nav>
+        <p>header</p>
     </header>

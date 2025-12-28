@@ -55,8 +55,27 @@
                         ご了承ください。</p>
 
                 </div>
+                                <div class="appointment-ex__fee">
+
+                    <ul>
+                        島1周コース（〜6名様）
+                    <li>大人一人500円</li>
+                        <li>子ども（小学生以下）一人300円</li>
+                        <li>フォトスポット1ヶ所につき、チェキ1枚（追加で、一枚につき100円）</li>
+                    </ul>
+                    <ul>
+                    島半周コース（〜6名様）
+                    <li>大人一人300円</li>
+                    <li>子ども（小学生以下）一人300円</li>
+                    <li>フォトスポット1ヶ所で一回写真撮影</li>
+                </ul>
+
+                </div>
                 <a href="<?php echo home_url('/appointment'); ?>" class="appointment-ex__link">更に詳しく＞</a>
                 <a href="#appointment-ex" class="appointment-ex appointment-Btn linkBtn">予約</a>
+
+
+
             </div>
         </section>
 

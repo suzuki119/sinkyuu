@@ -116,18 +116,20 @@ document.addEventListener('DOMContentLoaded', function () {
             let index = 0;
 
             function runSequence() {
-                const img = images[index];
 
+                const img = images[index];
                 img.style.animation = "none";
-                void img.offsetWidth;
+                void img.offsetWidth;//空の値を返す
 
                 const randomX = Math.random() * 100 - 20;
                 const randomRotate = (Math.random() * 80) - 40;
                 const delaytime = window.innerWidth * 12;
 
+                const uptime = window.innerWidth * 0.1;
+
                 img.style.left = `${randomX}%`;
                 img.style.setProperty("--rotate", `${randomRotate}deg`);
-                img.style.animation = `up 30s linear`;
+                img.style.animation = (`up 30s linear`);
 
                 index = (index + 1) % images.length;
                 setTimeout(runSequence, delaytime);

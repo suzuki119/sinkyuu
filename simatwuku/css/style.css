@@ -1,33 +1,33 @@
 @charset "UTF-8";
 @-webkit-keyframes up {
   0% {
-    transform: translateY(34.375rem) rotate(0deg);
+    transform: translateY(80vh) rotate(0deg);
     opacity: 0;
   }
   10% {
-    opacity: 0.7;
+    opacity: 0.9;
   }
   80% {
-    opacity: 0.6;
+    opacity: 0.5;
   }
   100% {
-    transform: translateY(-80vh) rotate(var(--rotate));
+    transform: translateY(-100vh) rotate(var(--rotate));
     opacity: 0;
   }
 }
 @keyframes up {
   0% {
-    transform: translateY(34.375rem) rotate(0deg);
+    transform: translateY(80vh) rotate(0deg);
     opacity: 0;
   }
   10% {
-    opacity: 0.7;
+    opacity: 0.9;
   }
   80% {
-    opacity: 0.6;
+    opacity: 0.5;
   }
   100% {
-    transform: translateY(-80vh) rotate(var(--rotate));
+    transform: translateY(-100vh) rotate(var(--rotate));
     opacity: 0;
   }
 }
@@ -151,7 +151,9 @@ body {
   left: 0;
   overflow-y: auto;
   background-color: #7CCDFF;
-  top: -100%;
+  top: 0;
+  left: 0;
+  transform: translateY(-100%);
   transition: all 0.6s ease-in-out;
   box-sizing: border-box;
   z-index: 5;
@@ -160,7 +162,8 @@ body {
 .menu.active {
   top: 0;
   padding-top: 12.5rem;
-  pointer-events: all;
+  transform: translateY(0);
+  pointer-events: auto;
 }
 .menu__inner {
   display: grid;
@@ -368,17 +371,23 @@ body {
 }
 .appointment-ex__link {
   display: inline-block;
-  margin-top: 0.625rem;
-  margin-bottom: 8.125rem;
+  margin: 1.875rem 0;
   border-bottom: #000 solid;
 }
 .appointment-ex__fee {
-  margin-top: 6.25rem;
+  width: 90%;
+  margin: 1.875rem auto 0 auto;
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  -moz-column-gap: 3.125rem;
-       column-gap: 3.125rem;
+  grid-template-columns: 1fr;
+  row-gap: 3.125rem;
   text-align: left;
+}
+@media (min-width: 1100px) {
+  .appointment-ex__fee {
+    grid-template-columns: 1fr 1fr;
+    -moz-column-gap: 3.125rem;
+         column-gap: 3.125rem;
+  }
 }
 .appointment-ex__fee ul {
   list-style: disc;
@@ -580,6 +589,7 @@ body {
   color: #FCFF54;
 }
 .footer__copy {
+  padding-top: 6.25rem;
   font-size: 0.75rem;
   font-weight: bold;
 }
