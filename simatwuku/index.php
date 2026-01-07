@@ -1,20 +1,182 @@
 <?php get_header();?>
+<section class="global-bottom">
+    <div class="global-bottom__inner">
+
+
+
+            <div class="global-bottom__content">
+                 <div class="global-bottom__toggle">
+                    <img src="<?php echo get_template_directory_uri(); ?>/img/icon/appointment.png" alt="" class="open">
+                 <img src="<?php echo get_template_directory_uri(); ?>/img/icon/back.png" alt="" class="back">
+                </div>
+                <a href="tel:080-4223-3450">
+                <div class="global-bottom__tel">
+                    <img src="<?php echo get_template_directory_uri(); ?>/img/icon/tel_1.png" alt="">
+                    <p>#080-4223-3450</p>
+
+
+
+                </div>
+                </a>
+
+                        <div class="global-bottom__menu">
+                <div>
+                    <h3 class="global-bottom__title">料金</h3>
+                        <div class="global-bottom__menu__box">
+                            <ul>
+                                <li>〜4名:2000円</li>
+                                <li>5名:2500円</li>
+                                <li>6名:3000円</li>
+                            </ul>
+                        </div>
+                </div>
+                <div>
+                    <h3 class="global-bottom__title">所要時間</h3>
+                    <div class="global-bottom__menu__box">
+                        <p>20分</p>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="global-bottom__title">人数</h3>
+                    <div class="global-bottom__menu__box">
+                        <p>1〜6人</p>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="global-bottom__title">のりば</h3>
+                    <div class="global-bottom__menu__box">
+                        <p>西港[ひまぽ前]</p>
+                        <p>東港[信号機前]</p>
+                    </div>
+                </div>
+                    </div>
+            </div>
+        </div>
+</section>
+
     <main class="main">
         <section class="mainvisual">
             <div class="mainvisual__inner">
-                <div class="mainvisual__image-group">
-                    <img src="<?php echo get_template_directory_uri(); ?>/img/image/18.jpg" alt="mv_1" class="mainvisual__image-group__image">
 
-                    <img src="<?php echo get_template_directory_uri(); ?>/img/image/3.jpg" alt="mv_2" class="mainvisual__image-group__image">
 
-                    <img src="<?php echo get_template_directory_uri(); ?>/img/image/7.jpg" alt="mv_3" class="mainvisual__image-group__image">
+<div class="mainvisual__copy">
+    <img src="<?php echo get_template_directory_uri(); ?>/img/icon/main-title.png" alt="きっと忘れられない思い出に">
+</div>
 
-                    <img src="<?php echo get_template_directory_uri(); ?>/img/image/25.jpg" alt="mv_4" class="mainvisual__image-group__image">
+                <div class="mainvisual__circle">
 
-                    <img src="<?php echo get_template_directory_uri(); ?>/img/image/22.jpg" alt="mv_5" class="mainvisual__image-group__image">
-                </div>
-                <h2 class="mainvisual__title">きっと<br>忘れられない思い出に</h2>
+<img src="<?php echo get_template_directory_uri(); ?>/img/icon/puffer-fish.png" alt="" class="mainvisual__circle__photo mainvisual__circle__image">
+
+<img src="<?php echo get_template_directory_uri(); ?>/img/icon/ocutopus.png" alt="" class="mainvisual__circle__photo mainvisual__circle__image">
+
+<img src="<?php echo get_template_directory_uri(); ?>/img/mainvisual__image/Vector 1.jpg" alt="" class="mainvisual__circle__photo">
+
+<img src="<?php echo get_template_directory_uri(); ?>/img/mainvisual__image/Vector 2.jpg" alt="" class="mainvisual__circle__photo">
+
+<img src="<?php echo get_template_directory_uri(); ?>/img/mainvisual__image/Vector 3.jpg" alt="" class="mainvisual__circle__photo">
+
+<img src="<?php echo get_template_directory_uri(); ?>/img/mainvisual__image/Vector 4.jpg" alt="" class="mainvisual__circle__photo">
+
+<img src="<?php echo get_template_directory_uri(); ?>/img/mainvisual__image/Vector 5.jpg" alt="" class="mainvisual__circle__photo">
+
+<img src="<?php echo get_template_directory_uri(); ?>/img/icon/ocutopus_1.png" alt="" class="mainvisual__circle__photo mainvisual__circle__image">
+
+<img src="<?php echo get_template_directory_uri(); ?>/img/mainvisual__image/Vector 6.jpg" alt="" class="mainvisual__circle__photo">
+
+<img src="<?php echo get_template_directory_uri(); ?>/img/mainvisual__image/Vector 7.jpg" alt="" class="mainvisual__circle__photo">
+
+<img src="<?php echo get_template_directory_uri(); ?>/img/mainvisual__image/Vector 8.jpg" alt="" class="mainvisual__circle__photo">
+
+<img src="<?php echo get_template_directory_uri(); ?>/img/mainvisual__image/Vector 9.jpg" alt="" class="mainvisual__circle__photo">
+
+                <div class="mainvisual__waves">
+<div>
+  <div class="wave top ">
+    <svg viewBox="0 0 2400 150" preserveAspectRatio="none">
+      <path d="M0,50 C100,130 100,-30 200,50 C300,130 300,-30 400,50 C500,130 500,-30 600,50 C700,130 700,-30 800,50 C900,130 900,-30 1000,50 C1100,130 1100,-30 1200,50 C1300,130 1300,-30 1400,50 C1500,130 1500,-30 1600,50 C1700,130 1700,-30 1800,50 C1900,130 1900,-30 2000,50 C2100,130 2100,-30 2200,50 C2300,130 2300,-30 2400,50 L2400,150 L0,150 Z" />
+    </svg>
+  </div>
+
+  <div class="wave bottom ">
+    <svg viewBox="0 0 2400 150" preserveAspectRatio="none">
+      <path d="M0,50 C100,-30 100,130 200,50 C300,-30 300,130 400,50 C500,-30 500,130 600,50 C700,-30 700,130 800,50 C900,-30 900,130 1000,50 C1100,-30 1100,130 1200,50 C1300,-30 1300,130 1400,50 C1500,-30 1500,130 1600,50 C1700,-30 1700,130 1800,50 C1900,-30 1900,130 2000,50 C2100,-30 2100,130 2200,50 C2300,-30 2300,130 2400,50 L2400,-50 L0,-50 Z"  />
+    </svg>
+  </div>
+</div>
+
+<div>
+  <div class="wave top ">
+    <svg viewBox="0 0 2400 150" preserveAspectRatio="none">
+      <path d="M0,50 C100,130 100,-30 200,50 C300,130 300,-30 400,50 C500,130 500,-30 600,50 C700,130 700,-30 800,50 C900,130 900,-30 1000,50 C1100,130 1100,-30 1200,50 C1300,130 1300,-30 1400,50 C1500,130 1500,-30 1600,50 C1700,130 1700,-30 1800,50 C1900,130 1900,-30 2000,50 C2100,130 2100,-30 2200,50 C2300,130 2300,-30 2400,50 L2400,150 L0,150 Z" />
+    </svg>
+  </div>
+
+  <div class="wave bottom ">
+    <svg viewBox="0 0 2400 150" preserveAspectRatio="none">
+      <path d="M0,50 C100,-30 100,130 200,50 C300,-30 300,130 400,50 C500,-30 500,130 600,50 C700,-30 700,130 800,50 C900,-30 900,130 1000,50 C1100,-30 1100,130 1200,50 C1300,-30 1300,130 1400,50 C1500,-30 1500,130 1600,50 C1700,-30 1700,130 1800,50 C1900,-30 1900,130 2000,50 C2100,-30 2100,130 2200,50 C2300,-30 2300,130 2400,50 L2400,-50 L0,-50 Z"  />
+    </svg>
+  </div>
+</div>
+
+
+
+
+<div>
+  <div class="wave top ">
+    <svg viewBox="0 0 2400 150" preserveAspectRatio="none">
+      <path d="M0,50 C100,130 100,-30 200,50 C300,130 300,-30 400,50 C500,130 500,-30 600,50 C700,130 700,-30 800,50 C900,130 900,-30 1000,50 C1100,130 1100,-30 1200,50 C1300,130 1300,-30 1400,50 C1500,130 1500,-30 1600,50 C1700,130 1700,-30 1800,50 C1900,130 1900,-30 2000,50 C2100,130 2100,-30 2200,50 C2300,130 2300,-30 2400,50 L2400,150 L0,150 Z" />
+    </svg>
+  </div>
+
+  <div class="wave bottom ">
+    <svg viewBox="0 0 2400 150" preserveAspectRatio="none">
+      <path d="M0,50 C100,-30 100,130 200,50 C300,-30 300,130 400,50 C500,-30 500,130 600,50 C700,-30 700,130 800,50 C900,-30 900,130 1000,50 C1100,-30 1100,130 1200,50 C1300,-30 1300,130 1400,50 C1500,-30 1500,130 1600,50 C1700,-30 1700,130 1800,50 C1900,-30 1900,130 2000,50 C2100,-30 2100,130 2200,50 C2300,-30 2300,130 2400,50 L2400,-50 L0,-50 Z"  />
+    </svg>
+  </div>
+</div>
+
+
+</div>
+</div>
+
+
+
             </div>
+        </section>
+
+         <section class="appointment-ex" id="appointment-ex">
+            <div class="appointment-ex__inner">
+                <h2 class="appointment-ex__title">ご利用方法</h2>
+                <div class="appointment-ex__textbox">
+                    <p>予約は電話のみの受付です。
+                        天候が著しく悪い日や都合による休業の時には電話が繋がりません。
+                        ご了承ください。</p>
+
+                                        </div>
+                <a href="<?php echo home_url('/appointment'); ?>" class="appointment-ex__link">更に詳しく＞</a>
+                <a href="#appointment-ex" class="appointment-ex appointment-Btn linkBtn">予約</a>
+
+
+
+            </div>
+
+
+                                <!-- <div class="appointment-ex__fee">
+
+                    <ul>
+                        島1周コース（〜6名様）
+                    <li>大人一人500円</li>
+                        <li>子ども（小学生以下）一人300円</li>
+                        <li>フォトスポット1ヶ所につき、チェキ1枚（追加で、一枚につき100円）</li>
+                    </ul>
+                    <ul>
+                    島半周コース（〜6名様）
+                    <li>大人一人300円</li>
+                    <li>子ども（小学生以下）一人300円</li>
+                    <li>フォトスポット1ヶ所で一回写真撮影</li>
+                </ul>
+</div>
+ -->
         </section>
 
         <section class="about" id="about">
@@ -46,38 +208,7 @@
 
         </section>
 
-        <section class="appointment-ex" id="appointment-ex">
-            <div class="appointment-ex__inner">
-                <h2 class="appointment-ex__title">予約の方法</h2>
-                <div class="appointment-ex__textbox">
-                    <p>予約は電話のみの受付です。
-                        天候が著しく悪い日や都合による休業の時には電話が繋がりません。
-                        ご了承ください。</p>
 
-                </div>
-                                <div class="appointment-ex__fee">
-
-                    <ul>
-                        島1周コース（〜6名様）
-                    <li>大人一人500円</li>
-                        <li>子ども（小学生以下）一人300円</li>
-                        <li>フォトスポット1ヶ所につき、チェキ1枚（追加で、一枚につき100円）</li>
-                    </ul>
-                    <ul>
-                    島半周コース（〜6名様）
-                    <li>大人一人300円</li>
-                    <li>子ども（小学生以下）一人300円</li>
-                    <li>フォトスポット1ヶ所で一回写真撮影</li>
-                </ul>
-
-                </div>
-                <a href="<?php echo home_url('/appointment'); ?>" class="appointment-ex__link">更に詳しく＞</a>
-                <a href="#appointment-ex" class="appointment-ex appointment-Btn linkBtn">予約</a>
-
-
-
-            </div>
-        </section>
 
         <section class="news" id="news">
 
@@ -117,9 +248,9 @@ $news_query = new WP_Query($args);
 
                 <div class="news__textbox">
                     <p>
-                        日付：<?php echo get_the_date('Y年m月d日'); ?><br>
+                        日付：<?php echo get_the_date('Y年m月d日'); ?><br> </p>
                         <?php the_excerpt(); ?>
-                    </p>
+
                 </div>
 
             </article>

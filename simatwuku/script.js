@@ -100,42 +100,94 @@ document.addEventListener('DOMContentLoaded', function () {
        ----------------- */
     const hamburgerBtn = document.querySelector(".hamburger");
     const menu = document.querySelector(".menu");
+    const body = document.body;
     if (hamburgerBtn && menu) {
         hamburgerBtn.addEventListener("click", function () {
             menu.classList.toggle("active");
             hamburgerBtn.classList.toggle("active");
+            if (window.innerWidth < 768) {
+                body.classList.toggle('is-fixed');
+            }
         });
     }
 
     /* -----------------
-       メインビジュアル：順番上昇アニメーション
+       メインビジュアル：アニメーション
        ----------------- */
     if (document.body.classList.contains("home")) {
-        const images = document.querySelectorAll(".mainvisual__image-group__image");
+        const images = document.querySelectorAll(".mainvisual__circle__photo");
+
         if (images.length > 0) {
             let index = 0;
 
             function runSequence() {
-
                 const img = images[index];
                 img.style.animation = "none";
-                void img.offsetWidth;//空の値を返す
+                void img.offsetWidth; // リフロー
 
                 const randomX = Math.random() * 100 - 20;
-                const randomRotate = (Math.random() * 80) - 40;
-                const delaytime = window.innerWidth * 12;
+                let randomRotate = Math.floor(Math.random() * 2);
 
-                const uptime = window.innerWidth * 0.1;
+                if (randomRotate === 1) {
+                    randomRotate = Math.floor(Math.random() * 40) + 40;
+                }
+                else {
+                    randomRotate = Math.floor(Math.random() * 40) - 80;
+                }
+                let randomSize = Math.random() * (150 - 100) + 100;
 
-                img.style.left = `${randomX}%`;
+
+
+                let randomY = (Math.floor((Math.random() * 2)));
+
+                if (randomY === 1) {
+                    randomY = 100;
+
+                } else {
+                    randomY = 400;
+                }
+
+                img.style.top = `${randomY}px`;
+
                 img.style.setProperty("--rotate", `${randomRotate}deg`);
-                img.style.animation = (`up 30s linear`);
 
+                img.style.setProperty("--up", `${randomSize / 5}px`);
+
+                img.style.setProperty("--size", `${randomSize}%`);
+
+                // ★ここを修正：up(横移動) と puka-puka(浮遊) を合体させる
+                // up は 30s で横切り、puka-puka は 4s ごとに揺れる
+                // runSequence内のアニメーション指定箇所
+                img.style.animation = `up 30s linear forwards, puka-puka 4s ease-in-out infinite`;
                 index = (index + 1) % images.length;
+
+                const delaytime = 3000; //window.innerWidth * 8;
+
                 setTimeout(runSequence, delaytime);
             }
             runSequence();
         }
+
+        const toggle = document.querySelector('.global-bottom__toggle');
+        const menu = document.querySelector('.global-bottom__content');
+
+        toggle.addEventListener('click', () => {
+            menu.classList.toggle('is-open');
+            toggle.classList.toggle('is-open');
+
+        });
+
+        window.addEventListener('DOMContentLoaded', () => {
+            const mv = document.querySelector('.mainvisual');
+            if (mv) {
+                // 現在の画面の高さを取得して、pxで直接指定する
+                const vh = window.innerHeight;
+                mv.style.height = `${vh}px`;
+            }
+        });
+
+
+
     }
 
 });

@@ -9,7 +9,7 @@
                 </h2>
 
                 <div class="root__image">
-                    <a href="./spot.html"><img src="<?php echo get_template_directory_uri(); ?>/img/map/s_map.png" alt="コースの画像"></a>
+                    <a href="<?php echo home_url('/spot'); ?>"><img src="<?php echo get_template_directory_uri(); ?>/img/map/s_map.png" alt="コースの画像"></a>
 
                 </div>
 

@@ -10,7 +10,7 @@
 
                     <div class="item__qanda">
                         <div class="item__imgbox">
-                            <img src="<?php echo get_template_directory_uri(); ?>/img/icon/アセット 22@4x.png" alt="">
+                            <img src="<?php echo get_template_directory_uri(); ?>/img/icon/customer.png" alt="">
                         </div>
                         <div class="item__textbox">
 
@@ -20,7 +20,7 @@
                     </div>
 
                     <div class="item__qanda">
-                        <div class="item__imgbox"><img src="<?php echo get_template_directory_uri(); ?>/img/icon/アセット 21@4x.png" alt="">
+                        <div class="item__imgbox"><img src="<?php echo get_template_directory_uri(); ?>/img/icon/support.png" alt="">
                         </div>
 
                         <div class="item__textbox">
@@ -35,7 +35,7 @@
 
                     <div class="item__qanda">
                         <div class="item__imgbox">
-                            <img src="<?php echo get_template_directory_uri(); ?>/img/icon/アセット 22@4x.png" alt="">
+                            <img src="<?php echo get_template_directory_uri(); ?>/img/icon/customer.png" alt="">
                         </div>
                         <div class="item__textbox">
 
@@ -46,7 +46,7 @@
                     </div>
 
                     <div class="item__qanda">
-                        <div class="item__imgbox"><img src="<?php echo get_template_directory_uri(); ?>/img/icon/アセット 21@4x.png" alt="">
+                        <div class="item__imgbox"><img src="<?php echo get_template_directory_uri(); ?>/img/icon/support.png" alt="">
                         </div>
 
                         <div class="item__textbox">

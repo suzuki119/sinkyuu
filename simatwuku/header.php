@@ -6,6 +6,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@700&family=Zen+Kaku+Gothic+Antique:wght@400;700&display=swap" rel="stylesheet">
+
 
     <meta name="robots" content="noindex">
 
@@ -13,8 +17,24 @@
 
     <link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/css/style.css">
 
-    <title>島トゥク</title>
 
+    <?php
+    // OGP/meta description
+    $ogp = simatwuku_get_ogp_data();
+    ?>
+    <meta name="description" content="<?php echo esc_attr($ogp['description']); ?>">
+
+    <meta property="og:title" content="<?php echo esc_attr($ogp['title']); ?>">
+    <meta property="og:description" content="<?php echo esc_attr($ogp['description']); ?>">
+    <meta property="og:url" content="<?php echo esc_url($ogp['url']); ?>">
+    <meta property="og:image" content="<?php echo esc_url($ogp['image']); ?>">
+    <meta property="og:type" content="<?php echo esc_attr($ogp['type']); ?>">
+    <meta property="og:site_name" content="<?php echo esc_attr($ogp['site_name']); ?>">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="<?php echo esc_attr($ogp['title']); ?>">
+    <meta name="twitter:description" content="<?php echo esc_attr($ogp['description']); ?>">
+    <meta name="twitter:image" content="<?php echo esc_url($ogp['image']); ?>">
 
     <?php wp_head(); ?>
 
@@ -25,9 +45,9 @@
 <body <?php body_class(); ?>>
     <header class="header">
         <div class="header__inner">
-            <a href="<?php echo home_url('/'); ?>" class="logo">
+            <a href="<?php echo home_url('/'); ?>" class="header__logo">
                 <h1>
-                    <img src="<?php echo get_template_directory_uri(); ?>/img/icon/logo_2.png" alt="logo">
+                    <img src="<?php echo get_template_directory_uri(); ?>/img/icon/logo_2.png" alt="">
                 </h1>
             </a>
             <div class="global">
@@ -38,7 +58,7 @@
                 </div>
                 <nav class="menu">
                     <div class="menu__inner">
-                        <ul>
+                         <ul>
                             <li><a href="<?php echo home_url('/'); ?>">HOME　↓</a></li>
                             <li><a href="<?php echo home_url('/#about'); ?>">島トゥクとは</a></li>
                             <li><a href="<?php echo home_url('/#vision-example'); ?>">景色の例</a></li>
@@ -48,14 +68,30 @@
                         <ul>
                             <li><a href="<?php echo home_url('/appointment'); ?>">予約</a></li>
                             <li><a href="<?php echo home_url('/q&a'); ?>">Q&A</a></li>
-                            <li><a href="<?php echo home_url('/info'); ?>">お問い合わせ</a></li>
+                            <li><a href="<?php echo home_url('/access'); ?>">お問い合わせ</a></li>
                             <li><a href="<?php echo home_url('/spot'); ?>">スポット</a></li>
                             <li><a href="<?php echo home_url('/root'); ?>">コース</a></li>
-                            <li><a href="<?php echo home_url('/access'); ?>">アクセス</a></li>
+                            <li><a href="<?php echo home_url('/info'); ?>">アクセス</a></li>
                         </ul>
-                        <a href="<?php echo home_url('/#appointment-ex'); ?>" class="appointment-Btn linkBtn">
-                            予約
-                        </a>
+            <div class="footer__media">
+
+                <div class="footer__media__SNS">
+                    <a href="#" class="insta">
+                        <img src="<?php echo get_template_directory_uri(); ?>/img/icon/Instagram_Glyph_Gradient.png" alt="">
+                    </a>
+                    <a href="#" class="blog">
+                        <img src="<?php echo get_template_directory_uri(); ?>/img/bana-/blog_bana-.jpg" alt="ブログバナー">
+                    </a>
+                </div>
+
+
+                <a href="#" class="shop">
+                    <img src="<?php echo get_template_directory_uri(); ?>/img/bana-/shop_bana-.jpg" alt="ショップバナー">
+                </a>
+                <a href="#" class="ajihama">
+                    <img src="<?php echo get_template_directory_uri(); ?>/img/bana-/azi_bana-.jpg" alt="アジハマバナー">
+                </a>
+            </div>
                     </div>
                 </nav>
             </div>

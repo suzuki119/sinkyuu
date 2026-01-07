@@ -45,10 +45,10 @@
                 <ul class="footer__fnav__ul">
                     <li><a href="<?php echo home_url('/appointment'); ?>">予約</a></li>
                     <li><a href="<?php echo home_url('/q&a'); ?>">Q&A</a></li>
-                    <li><a href="<?php echo home_url('/info'); ?>">お問い合わせ</a></li>
+                    <li><a href="<?php echo home_url('/access'); ?>">お問い合わせ</a></li>
                     <li><a href="<?php echo home_url('/spot'); ?>">スポット</a></li>
                     <li><a href="<?php echo home_url('/root'); ?>">コース</a></li>
-                    <li><a href="<?php echo home_url('/access'); ?>">アクセス</a></li>
+                    <li><a href="<?php echo home_url('/info'); ?>">アクセス</a></li>
                 </ul>
 
 
@@ -63,6 +63,8 @@
 
         </div>
     </footer>
+
+
 
 
     <?php wp_footer(); ?>

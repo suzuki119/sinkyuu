@@ -50,3 +50,37 @@ function remove_post_taxonomies() {
     unregister_taxonomy_for_object_type('post_tag', 'post');
 }
 add_action('init', 'remove_post_taxonomies');
+
+// OGP / meta description 用の共通取得関数
+function simatwuku_get_ogp_data() {
+    $site_name = get_bloginfo('name');
+    $site_description = get_bloginfo('description');
+    $theme_url = get_template_directory_uri();
+
+    $data = array(
+        'title' => $site_name,
+        'description' => $site_description,
+        'url' => home_url('/'),
+        'image' => $theme_url . '/img/ogp.jpg',
+        'type' => 'website',
+        'site_name' => $site_name,
+    );
+
+    if (is_front_page()) {
+        $data['title'] = '日間賀島を巡る観光フォトサービス｜島トゥク';
+        $data['description'] = '日間賀島をトゥクトゥクで巡る観光フォトサービス「島トゥク」。潮風を感じながら、島の人気スポットで思い出に残る写真を撮影できます。';
+    }
+
+    if (is_single() || is_page()) {
+        $data['title'] = get_the_title();
+        $data['description'] = get_the_excerpt() ?: $site_description;
+        $data['url'] = get_permalink();
+        $data['type'] = 'article';
+
+        if (has_post_thumbnail()) {
+            $data['image'] = get_the_post_thumbnail_url(null, 'large');
+        }
+    }
+
+    return $data;
+}
