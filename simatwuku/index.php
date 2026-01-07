@@ -154,7 +154,7 @@
 
                                         </div>
                 <a href="<?php echo home_url('/appointment'); ?>" class="appointment-ex__link">更に詳しく＞</a>
-                <a href="#appointment-ex" class="appointment-ex appointment-Btn linkBtn">予約</a>
+                <a href="tel:080-4223-3450" class="appointment-ex appointment-Btn linkBtn">予約</a>
 
 
 
@@ -261,7 +261,7 @@ $news_query = new WP_Query($args);
 
 
                 </div>
-                <a href="<?php echo home_url('/news-archive'); ?>" class="more linkBtn">more</a>
+                <a href="<?php echo home_url('/news-archive'); ?>" class="more linkBtn">More</a>
             </div>
 
         </section>

@@ -204,21 +204,31 @@ h2,
 
 
 .linkBtn {
-    color: $color-white;
     display: block;
-    position: relative;
-    text-align: center;
-    align-content: center;
-    width: rem(300);
-    height: 75px;
-    font-size: $space-xl;
+    width: 100%;
+    max-width: rem(300);
+    margin: rem(40) auto 0;
+    background-color: #DF0000; // 予約ボタンと同じ色
+    color: $color-white;
+    border: 4px solid $color-white;
+    border-radius: rem(50);
+    padding: rem(10);
+    font-size: rem(30);
     font-weight: bold;
-    margin: 0 auto;
-    border-radius: $space-xxl;
-    background-color: #DF0000;
-    border: $color-white 4px solid;
-    font-family: $font-primary;
+    cursor: pointer;
+    box-shadow: 0 4px 0 $color-text-dark;
+    transition: transform 0.2s;
+    text-align: center;
 
+    &:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 7px 0 $color-text-dark;
+    }
+
+    &:active {
+        transform: translateY(2px);
+        box-shadow: 0 2px 0 $color-text-dark;
+    }
 }
 
 .hamburger {
@@ -502,9 +512,9 @@ h2,
     margin-bottom: rem(100);
 
     // 1. ピンクの格子背景
-    background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+    background: linear-gradient(-45deg, #ff8d6a, #ff428a, #90e1ff, #92ffe6);
     background-size: 400% 400%; // 背景を大きく引き伸ばす
-    animation: gradientAnimation 20s ease infinite; // 10秒かけて無限ループ
+    animation: gradientAnimation 15s ease infinite; // 10秒かけて無限ループ
 
 
 
@@ -1391,6 +1401,43 @@ h2,
             &:active {
                 transform: translateY(2px);
                 box-shadow: 0 2px 0 $color-text-dark;
+            }
+        }
+    }
+
+    .btn-back {
+        display: inline-block;
+        margin-top: rem(50);
+        color: $blue-main;
+        font-weight: bold;
+        text-decoration: underline;
+        cursor: pointer;
+
+        &:hover {
+            color: darken($blue-main, 10%);
+        }
+    }
+
+    .thanks-box {
+        text-align: center;
+        padding: rem(40);
+        background-color: $color-white;
+        border-radius: rem(30);
+        border: 3px solid $color-base;
+
+        &__message {
+            font-family: $font-primary;
+            font-size: rem(24);
+            font-weight: bold;
+            color: $blue-dark;
+            line-height: 1.6;
+            margin-bottom: rem(30);
+
+            span {
+                font-size: rem(16);
+                display: block;
+                margin-top: rem(10);
+                color: $color-text-dark;
             }
         }
     }
