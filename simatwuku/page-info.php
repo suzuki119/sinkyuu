@@ -3,10 +3,11 @@
     <main>
 
         <section class="info">
-            <div class="info__inner">
                 <h2 class="info__title">
                     アクセス
                 </h2>
+            <div class="info__inner">
+
 
 <h3>
     電車でお越しの場合

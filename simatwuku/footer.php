@@ -4,10 +4,10 @@
             <div class="footer__media">
 
                 <div class="footer__media__SNS">
-                    <a href="#" class="insta">
+                    <a href="https://www.instagram.com/ajihama.himakajima" class="insta">
                         <img src="<?php echo get_template_directory_uri(); ?>/img/icon/Instagram_Glyph_Gradient.png" alt="">
                     </a>
-                    <a href="#" class="blog">
+                    <a href="https://ameblo.jp/katu-sayo/" class="blog">
                         <img src="<?php echo get_template_directory_uri(); ?>/img/bana-/blog_bana-.jpg" alt="ブログバナー">
                     </a>
                 </div>

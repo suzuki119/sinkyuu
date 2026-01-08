@@ -24,9 +24,9 @@
                     <h3 class="global-bottom__title">料金</h3>
                         <div class="global-bottom__menu__box">
                             <ul>
-                                <li>〜4名:2000円</li>
-                                <li>5名:2500円</li>
-                                <li>6名:3000円</li>
+                                <li>〜4名:<?php echo get_theme_mod('price_min', '2000'); ?>円</li>
+                                <li>5名:<?php echo get_theme_mod('price_middle', '2500'); ?>円</li>
+                                <li>6名:<?php echo get_theme_mod('price_max', '3000'); ?>円</li>
                             </ul>
                         </div>
                 </div>
@@ -197,13 +197,16 @@
             <div class="vision-example__inner">
                 <h2 class="vision-example__title">景色の例</h2>
                 <div class="vision-example__image-area">
+                  <a href="https://www.instagram.com/ajihama.himakajima" class="insta">
                     <img src="<?php echo get_template_directory_uri(); ?>/img/image/15.jpg" alt="example_1" class="vision-example__image-area__image">
                     <img src="<?php echo get_template_directory_uri(); ?>/img/image/13.jpg" alt="example_2" class="vision-example__image-area__image">
                     <img src="<?php echo get_template_directory_uri(); ?>/img/image/9.jpg" alt="example_3" class="vision-example__image-area__image">
                     <img src="<?php echo get_template_directory_uri(); ?>/img/image/19.jpg" alt="example_4" class="vision-example__image-area__image">
                     <img src="<?php echo get_template_directory_uri(); ?>/img/image/24.jpg" alt="example_5" class="vision-example__image-area__image">
                     <img src="<?php echo get_template_directory_uri(); ?>/img/image/20.jpg" alt="example_6" class="vision-example__image-area__image">
+                    </a>
                 </div>
+                <a href="https://www.instagram.com/ajihama.himakajima" class="more linkBtn">Instagram</a>
             </div>
 
         </section>

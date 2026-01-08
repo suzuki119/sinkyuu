@@ -5,16 +5,7 @@ document.addEventListener('DOMContentLoaded', function () {
     /* -----------------
        appointment page
        ----------------- */
-    if (document.body.classList.contains("page-appointment")) {
-        console.log("ckick");
-        const toggle = document.querySelector(".appointment__toggleBtn");
-        const togglelist = document.querySelector(".appointment__others__textbox");
-        console.log('appointment toggle found', toggle, togglelist);
-        toggle.addEventListener("click", () => {
-            console.log("ckick");
-            togglelist.classList.toggle("show");
-        });
-    }
+
 
     /* -----------------
        root page (map切替)
@@ -48,7 +39,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     /* -----------------
-       index: 画像切替（5秒ごと）
+       index: 画像切替
        ----------------- */
     if (document.body.classList.contains("home")) {
         const images = document.querySelectorAll(".vision-example__image-area__image");
@@ -65,7 +56,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 images[currentIndex].style.opacity = "0";
                 images[nextIndex].style.opacity = "1";
                 currentIndex = nextIndex;
-            }, 5000);
+            }, 3000);
         }
     }
 

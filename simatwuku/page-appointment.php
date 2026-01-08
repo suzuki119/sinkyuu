@@ -3,10 +3,11 @@
     <main>
 
         <section class="appointment" id="appointment">
-            <div class="appointment__inner">
+
                 <h2 class="appointment__title">予約の方法</h2>
 
 
+                <div class="appointment__inner">
                 <ul class="appointment__list">
                     <li>
                         <div>
@@ -21,6 +22,39 @@
                         </div>
                     </li>
                 </ul>
+                <div class="global-bottom__menu">
+                <div>
+                    <h3 class="global-bottom__title">料金</h3>
+                        <div class="global-bottom__menu__box">
+                            <ul>
+                                <li>〜4名:<?php echo get_theme_mod('price_min', '2000'); ?>円</li>
+                                <li>5名:<?php echo get_theme_mod('price_middle', '2500'); ?>円</li>
+                                <li>6名:<?php echo get_theme_mod('price_max', '3000'); ?>円</li>
+                            </ul>
+                        </div>
+                </div>
+                <div>
+                    <h3 class="global-bottom__title">所要時間</h3>
+                    <div class="global-bottom__menu__box">
+                        <p>20分</p>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="global-bottom__title">人数</h3>
+                    <div class="global-bottom__menu__box">
+                        <p>1〜6人</p>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="global-bottom__title">のりば</h3>
+                    <div class="global-bottom__menu__box">
+                        <p>西港[ひまぽ前]</p>
+                        <p>東港[信号機前]</p>
+                    </div>
+                </div>
+                    </div>
+
+                <a href="#appointment-ex" class="appointment-Btn linkBtn">予約</a>
 
                 <div class="appointment__others">
 
@@ -44,7 +78,12 @@
                         </ul>
                     </div>
                 </div>
-                <a href="#appointment-ex" class="appointment-Btn linkBtn">予約</a>
+
+
+
+
+
+
             </div>
 
         </section>

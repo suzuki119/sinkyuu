@@ -84,3 +84,48 @@ function simatwuku_get_ogp_data() {
 
     return $data;
 }
+
+/**
+ * カスタマイザーに料金設定を追加
+ */
+function shimatuku_customize_register( $wp_customize ) {
+    // 1. セクション（まとまり）を作る
+    $wp_customize->add_section( 'shimatuku_price_section', array(
+        'title'    => '料金・数値設定', // 管理画面に表示される名前
+        'priority' => 100,
+    ));
+    // 料金の設定
+    $wp_customize->add_setting( 'price_min', array(
+        'default'   => '2000', // 初期値
+        'transport' => 'refresh',
+    ));
+    $wp_customize->add_control( 'price_min', array(
+        'label'    => '４名までの料金（単位なしで入力してください）',
+        'section'  => 'shimatuku_price_section',
+        'settings' => 'price_min',
+        'type'     => 'text',
+    ));
+
+    $wp_customize->add_setting( 'price_middle', array(
+    'default'   => '2500', // 初期値
+    'transport' => 'refresh',
+    ));
+    $wp_customize->add_control( 'price_middle', array(
+        'label'    => '5名の料金（単位なしで入力してください）',
+        'section'  => 'shimatuku_price_section',
+        'settings' => 'price_middle',
+        'type'     => 'text',
+    ));
+
+    $wp_customize->add_setting( 'price_max', array(
+    'default'   => '3000', // 初期値
+    'transport' => 'refresh',
+    ));
+    $wp_customize->add_control( 'price_max', array(
+        'label'    => '6名の料金（単位なしで入力してください）',
+        'section'  => 'shimatuku_price_section',
+        'settings' => 'price_max',
+        'type'     => 'text',
+    ));
+}
+add_action( 'customize_register', 'shimatuku_customize_register' );

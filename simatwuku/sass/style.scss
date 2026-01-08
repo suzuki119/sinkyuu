@@ -1,40 +1,43 @@
 @use "sass:math";
 
-// --- Colors ---
+/* ========================================
+   変数定義
+======================================== */
+
+// --- カラー ---
 $color-text: #F2F2F2;
 $color-bg: #e6e6e6;
-$color-base: #7CCDFF;
+$color-bg-yellow: #F2F2ED;
+$color-base: #008cff;
 $color-main: #FFE5B5;
 $color-accent: #FCFF54;
 $color-white: #FFF;
 $color-text-dark: #000;
-$pink-bg: #ff3d77; // 背景のピンク
+
+$pink-bg: #ff3d77;
 $blue-bg: #c2f3ff;
 $yellow-bg: #feffc5;
-$blue-main: #0084FF; // 中央の濃い青
-$blue-light: #41efff; // 波の水色
+$blue-main: #0084FF;
+$blue-light: #41efff;
 $blue-dark: #002756;
 $btn-red: #DF0000;
 
-// デザイン案の「筑紫A丸ゴシック」の代わりに、Webフォントの Rounded 1c を指定
+// --- フォント ---
 $font-primary: "M PLUS Rounded 1c", sans-serif;
-
-// 本文用の Zen Kaku Gothic Antique を指定
 $font-text: "Zen Kaku Gothic Antique", sans-serif;
 
-
+// --- アニメーション設定 ---
 $wave-cycle: 200px;
 $wave-speed: 6s;
 
-
-// --- Breakpoints ---
+// --- ブレークポイント ---
 $breakpoints: (
     mobile: 375px,
     tablet: 768px,
     desktop: 1100px
 );
 
-// --- Spacing ---
+// --- スペーシング ---
 $space-xs: 0.25rem; // 4px
 $space-s: 0.5rem; // 8px
 $space-m: 1rem; // 16px
@@ -43,16 +46,31 @@ $space-xl: 2rem; // 32px
 $space-xxl: 2.5rem; // 40px
 $space-xxxl: 3rem; // 48px
 
+
+/* ========================================
+   関数・ミックスイン
+======================================== */
+
+// pxからremへの変換
+@function rem($px-value) {
+    @return #{math.div($px-value, 16)}rem;
+}
+
+// メディアクエリ
 @mixin mq($breakpoint: desktop) {
     @media (min-width: map-get($breakpoints, $breakpoint)) {
         @content;
     }
 }
 
-@function rem($px-value) {
-    @return #{math.div($px-value, 16)}rem;
+// インナー幅の設定
+@mixin inner($mw: 1300px, $w: 95%) {
+    width: $w;
+    margin-left: auto;
+    margin-right: auto;
 }
 
+// セクションタイトル
 @mixin title() {
     font-family: $font-primary;
     margin-bottom: rem(80);
@@ -61,15 +79,22 @@ $space-xxxl: 3rem; // 48px
     text-align: center;
     color: $color-accent;
     text-shadow: 3px 3px 0px $color-text-dark;
+}
 
+// ページタイトル（白背景用）
+@mixin page-title() {
+    @include title();
+    margin-bottom: rem(60);
+    color: $blue-main;
+    text-shadow: 2px 2px 0px $color-accent;
+    background-color: rgba($color-white, 0.95);
+    border-radius: rem(100);
 }
 
 
-@mixin inner($mw: 1300px, $w: 95%) {
-    width: $w;
-    margin-left: auto;
-    margin-right: auto;
-}
+/* ========================================
+   アニメーション定義
+======================================== */
 
 @keyframes up {
     0% {
@@ -77,10 +102,7 @@ $space-xxxl: 3rem; // 48px
         opacity: 0;
     }
 
-    10% {
-        opacity: 1;
-    }
-
+    10%,
     80% {
         opacity: 1;
     }
@@ -93,21 +115,16 @@ $space-xxxl: 3rem; // 48px
 
 @keyframes puka-puka {
 
-    0% {
-        margin-top: 0;
-    }
-
-
-    50% {
-        margin-top: var(--up); // transformを使わずに上にずらす
-    }
-
+    0%,
     100% {
         margin-top: 0;
     }
+
+    50% {
+        margin-top: var(--up);
+    }
 }
 
-// アニメーション定義
 @keyframes move-right {
     0% {
         transform: translate3d(calc(var(--wave-cycle) * -1), 0, 0);
@@ -129,35 +146,43 @@ $space-xxxl: 3rem; // 48px
 }
 
 @keyframes big {
-    0% {
+
+    0%,
+    100% {
         transform: scale(1);
     }
 
     50% {
         transform: scale(1.05);
     }
-
-    100% {
-        transform: scale(1);
-    }
 }
 
 @keyframes gradientAnimation {
-    0% {
+
+    0%,
+    100% {
         background-position: 0% 50%;
     }
 
     50% {
         background-position: 100% 50%;
     }
+}
+
+@keyframes Linkup {
+    0% {}
 
     100% {
-        background-position: 0% 50%;
+        transform: scale(1.1) rotate(-2deg);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
     }
+
 }
 
 
-
+/* ========================================
+   ベーススタイル
+======================================== */
 
 img {
     max-width: 100%;
@@ -175,50 +200,65 @@ body {
     color: $color-text-dark;
     line-height: 2;
     letter-spacing: 0.1em;
-    background-color: $blue-main;
+    background: url(../img/back.png) repeat-y;
+    background-size: 100%;
     word-wrap: break-word;
     overflow-wrap: break-word;
-    font-family: "Tsukushi B Round Gothic", sans-serif;
 
     &.is-fixed {
         overflow: hidden;
     }
-}
 
-body {
-    font-family: $font-text;
-    font-weight: 400; // 通常時
+    // カスタムスクロールバー
+    * {
+        &::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        &::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+
+        &::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 10px;
+
+            &:hover {
+                background: #555;
+            }
+        }
+    }
 }
 
 h2,
 .bold {
     font-family: $font-primary;
-    font-weight: 700; // 見出し時
-}
-
-.global {
-    align-content: center;
+    font-weight: 700;
 }
 
 
+/* ========================================
+   共通コンポーネント
+======================================== */
 
-
+// リンクボタン
 .linkBtn {
     display: block;
     width: 100%;
     max-width: rem(300);
     margin: rem(40) auto 0;
-    background-color: #DF0000; // 予約ボタンと同じ色
+    padding: rem(10);
+    background-color: $btn-red;
     color: $color-white;
     border: 4px solid $color-white;
     border-radius: rem(50);
-    padding: rem(10);
     font-size: rem(30);
     font-weight: bold;
+    text-align: center;
     cursor: pointer;
     box-shadow: 0 4px 0 $color-text-dark;
     transition: transform 0.2s;
-    text-align: center;
 
     &:hover {
         transform: translateY(-3px);
@@ -231,209 +271,205 @@ h2,
     }
 }
 
+// ハンバーガーメニュー
 .hamburger {
     position: relative;
     display: grid;
     grid-auto-flow: row;
     row-gap: rem(10);
+    padding: rem(13) rem(10);
+    background-color: $blue-light;
+    border: 3px solid $color-white;
+    border-radius: rem(20);
     cursor: pointer;
-    background-color: $blue-dark;
-    padding: rem(10);
-    border-radius: rem(10);
     z-index: 20;
 
+
     &__span {
-        width: rem(50); // ✗にするとき大きすぎるので最適化
+        width: rem(50);
         height: rem(6);
         border-radius: rem(3);
         background-color: $color-white;
         transition: all 0.5s ease;
         transform-origin: center;
     }
+
+    &.active {
+        .hamburger__span {
+            &:nth-child(1) {
+                transform: translateY(rem(16)) rotate(45deg);
+            }
+
+            &:nth-child(2) {
+                opacity: 0;
+                transform: scale(0);
+            }
+
+            &:nth-child(3) {
+                transform: translateY(rem(-16)) rotate(-45deg);
+            }
+        }
+    }
 }
 
-/* アクティブ時 = ✗ マーク */
-.hamburger.active .hamburger__span:nth-child(1) {
-    transform: translateY(rem(16)) rotate(45deg);
-}
 
-.hamburger.active .hamburger__span:nth-child(2) {
-    opacity: 0;
-    transform: scale(0); // 真ん中に向かって縮小して消す
-}
-
-.hamburger.active .hamburger__span:nth-child(3) {
-    transform: translateY(rem(-16)) rotate(-45deg);
-}
-
+/* ========================================
+   ヘッダー
+======================================== */
 
 .header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    margin-top: rem(20);
+    z-index: 200;
+
     &__inner {
         @include inner();
         display: flex;
         justify-content: space-between;
     }
 
-    width: 100%;
-    position: fixed;
-    margin-top: rem(20);
-    z-index: 200;
-
     &__logo {
         display: block;
         max-width: rem(200);
         width: 40%;
-        z-index: 20;
-        align-content: center;
         padding: rem(10) rem(5%);
         border-radius: 0 0 rem(20) 0;
         text-align: center;
-
-
+        align-content: center;
+        z-index: 20;
     }
 }
 
+// ナビゲーションメニュー
 .menu {
     position: fixed;
-    pointer-events: none;
-    text-align: center;
-    height: 100vh;
-    width: 100%;
-    max-width: rem(500);
-    overflow-y: auto;
-    background-color: $color-white;
     top: 0;
     right: 0;
-    transform: translateY(-100%);
-    transition: all 0.6s ease-in-out;
-    box-sizing: border-box;
-    z-index: 10;
+    width: 100%;
+    max-width: rem(500);
+    height: 100vh;
     padding-top: rem(150);
     padding-bottom: rem(50);
+    background-color: $color-bg-yellow;
+    transform: translateY(-100%);
+    transition: all 0.6s ease-in-out;
+    overflow-y: auto;
+    pointer-events: none;
+    text-align: center;
+    box-sizing: border-box;
+    z-index: 10;
 
     &.active {
-        top: 0;
         transform: translateY(0);
         pointer-events: auto;
     }
 
     &__inner {
+        @include inner();
         display: grid;
         grid-auto-flow: row;
         row-gap: rem(50);
         font-family: $font-primary;
         font-size: rem(24);
         font-weight: bold;
-        @include inner();
+    }
 
-        & ul {
-            display: grid;
-            grid-auto-flow: row;
-            row-gap: rem(10);
-            border-bottom: $color-white solid;
-            padding: rem(50) 0;
-            background-color: $yellow-bg;
-            border-radius: rem(25);
+    ul {
+        display: grid;
+        grid-auto-flow: row;
+        row-gap: rem(10);
+        padding: rem(50) 0;
+        background-color: $yellow-bg;
+        border-radius: rem(25);
 
-            & li {
-                border-bottom: $color-bg 2px dashed;
+        li {
+            border-bottom: $color-bg 2px dashed;
+
+            &:first-child {
+                border-top: $color-bg 2px dashed;
+            }
+        }
+
+        &:nth-child(odd) {
+            background-color: $blue-bg;
+
+            li {
+                border-bottom: $color-white 2px dashed;
 
                 &:first-child {
-                    border-top: $color-bg 2px dashed;
+                    border-top: $color-white 2px dashed;
                 }
+
+
             }
-
-            &:nth-child(odd) {
-                background-color: $blue-bg;
-
-                & li {
-                    border-bottom: $color-white 2px dashed;
-
-                    &:first-child {
-                        border-top: $color-white 2px dashed;
-                    }
-                }
-            }
-
-
         }
+    }
+
+    & .footer__media {
+        background-color: $color-white;
+        padding: rem(30) rem(10);
+        border-radius: rem(35);
     }
 }
 
-.global-bottom {
 
+/* ========================================
+   グローバルボトム（予約情報）
+======================================== */
+
+.global-bottom {
     &__toggle {
         position: absolute;
         left: 2.5%;
         top: -180px;
         z-index: 20;
 
-
-        & img {
+        img {
             width: rem(150);
         }
 
-        & .open {
+        .open {
             display: block;
             animation: big 3s ease-in-out infinite;
             cursor: pointer;
         }
 
-        & .back {
+        .back {
             display: none;
         }
 
         &.is-open {
             top: 10px;
 
-            & img {
+            img {
                 width: rem(100);
             }
 
-            & .back {
+            .back {
                 display: block;
             }
 
-            & .open {
+            .open {
                 display: none;
             }
         }
-
-    }
-
-    &__title {
-        text-align: center;
-        font-family: $font-primary;
-        font-size: rem(24);
-        font-weight: bold;
-
-        background-color: $blue-main;
-        color: $color-white;
-        border-radius: rem(100);
-        width: 80%;
-        max-width: rem(300);
-        margin: 0 auto;
-        margin-bottom: rem(20);
     }
 
     &__content {
         position: fixed;
+        bottom: 0;
+        right: 0;
         width: 100%;
         height: 100vh;
         padding-top: rem(30);
-        z-index: 5;
         background-color: $color-white;
-        top: rem(100); // 削除するか、開いた時の位置として調整
-        bottom: 0; // 下を基準にする
-        right: 0;
         border-radius: 35px 35px 0 0;
-
-
-        // --- 追加：アニメーションの準備 ---
-        transform: translateY(calc(100% - 100px)); // 100px分だけ頭を出しておく（数値は調整してください）
+        transform: translateY(100%);
         transition: transform 0.4s ease-in-out;
+        z-index: 5;
 
-        // --- 追加：開いた時の状態 ---
         &.is-open {
             transform: translateY(0);
             top: rem(120);
@@ -444,80 +480,89 @@ h2,
         }
     }
 
+    &__title {
+        width: 80%;
+        max-width: rem(300);
+        margin: 0 auto rem(20);
+        padding: 0.5em 0;
+        background-color: $blue-main;
+        color: $color-white;
+        border-radius: rem(100);
+        font-family: $font-primary;
+        font-size: rem(24);
+        font-weight: bold;
+        text-align: center;
+    }
+
     &__menu {
         margin: 0 5%;
         display: grid;
         grid-template-columns: repeat(2, 1fr);
-        row-gap: rem(30);
         column-gap: rem(10);
-        text-align: center;
+        row-gap: rem(30);
         font-family: $font-primary;
         font-size: rem(20);
         font-weight: bold;
+        text-align: center;
 
-        & ul {
+        @include mq(desktop) {
+            grid-template-columns: repeat(4, 1fr);
+        }
+
+        ul {
             display: grid;
             grid-auto-flow: row;
             row-gap: rem(15);
         }
 
         &__box {
-            border-radius: rem(10);
             border: $blue-main 3px solid;
+            border-radius: rem(10);
         }
-
-        @include mq(desktop) {
-            grid-template-columns: repeat(4, 1fr);
-        }
-
     }
 
     &__tel {
-        margin: 0 10%;
-        text-align: center;
-        font-size: rem(24);
-        font-weight: bold;
-        align-items: center;
+        margin: 0 10% rem(10);
+        padding: rem(20) 0;
         background-color: $pink-bg;
         color: $color-white;
         border-radius: rem(25);
-        margin-bottom: rem(10);
-        padding: rem(20) 0;
+        font-size: rem(24);
+        font-weight: bold;
+        text-align: center;
         animation: big 3s ease-in-out infinite;
 
         @include mq(desktop) {
             display: flex;
             justify-content: center;
+            align-items: center;
             margin-bottom: rem(70);
         }
 
-        & img {
+        img {
             width: 60%;
             max-width: rem(150);
-
         }
 
         &:hover {
-
             transition: all 0.3s ease;
         }
     }
-
 }
+
+
+/* ========================================
+   メインビジュアル
+======================================== */
 
 .mainvisual {
     position: relative;
     width: 100%;
-    overflow: hidden;
     margin-bottom: rem(100);
-
-    // 1. ピンクの格子背景
+    overflow: hidden;
     background: linear-gradient(-45deg, #ff8d6a, #ff428a, #90e1ff, #92ffe6);
-    background-size: 400% 400%; // 背景を大きく引き伸ばす
-    animation: gradientAnimation 15s ease infinite; // 10秒かけて無限ループ
-
-
-
+    background-size: 400% 400%;
+    animation: gradientAnimation 15s ease infinite;
     --display-height: 150px;
     --wave-cycle: #{$wave-cycle};
 
@@ -525,33 +570,22 @@ h2,
         display: flex;
         justify-content: center;
         align-items: center;
-        height: 100%;
+        position: relative;
         width: 100%;
-        position: relative; // 基準点
+        height: 100%;
     }
 
-    // 2. 中央の大きな円
     &__circle {
         position: relative;
-
-        // 【重要】大きさを固定（例: PC基準の1200px相当）
-        // スマホ画面幅(例: 375px)よりも大きいため、自動的にはみ出します
         width: rem(750);
         aspect-ratio: 1;
-
-        // aspect-ratio: 1; // width/height固定なら不要ですがあってもOK
-
-        // 【重要】スマホではみ出させるため、max-widthを解除
         max-width: none;
         max-height: none;
-
-        flex-shrink: 0; // 親のFlexボックスによって縮められるのを防ぐ
-
+        flex-shrink: 0;
         background-color: $blue-main;
         border-radius: 50%;
         overflow: hidden;
         box-shadow: 0 10px 40px rgba(255, 255, 255, 0.15);
-
         display: flex;
         justify-content: center;
         align-items: center;
@@ -561,36 +595,26 @@ h2,
             transform: scale(130%);
         }
 
-
-
-
-        // SCSSの .mainvisual__circle__photo の箇所
         &__photo {
             position: absolute;
-            width: 100%;
-            object-fit: cover;
-            aspect-ratio: 1;
-            border-radius: 50%;
-            border: $color-white 10px solid;
-            max-width: rem(200);
             bottom: 10%;
+            width: 100%;
+            max-width: rem(200);
+            aspect-ratio: 1;
+            border: $color-white 10px solid;
+            border-radius: 50%;
+            object-fit: cover;
             opacity: 0;
-
-
-            // JSで上書きする前の初期状態として、puka-pukaだけ入れておいてもOK
-            // ただしJSで animation を書き換えると消えてしまうので、JS側で工夫します
         }
 
         &__image {
             position: absolute;
-            max-width: rem(200);
             bottom: 10%;
-            border-radius: rem(0);
+            max-width: rem(200);
             border: 0;
+            border-radius: 0;
             object-fit: contain;
             animation: puka-puka 4s ease-in-out infinite;
-
-            @include mq(desktop) {}
         }
     }
 
@@ -599,176 +623,171 @@ h2,
         top: 40%;
         width: 100%;
         text-align: center;
-        z-index: 3;
         transform: rotate(-3deg);
+        z-index: 3;
 
         @include mq(desktop) {
             top: 30%;
         }
 
-        & img {
+        img {
             width: 90%;
             max-width: rem(700);
         }
     }
 
     &__waves {
-        // 円の真ん中に絶対配置
         position: absolute;
         top: 50%;
         left: 0;
-        transform: translateY(-50%); // Y軸方向に自分の高さの半分戻して中央化
         width: 100%;
-
-        // margin-top: rem(50); // 中央配置にするため、もし不要なら削除
-
-        // 複数の波セットがある場合、それらを縦に並べる
+        transform: translateY(-50%);
         display: flex;
         flex-direction: column;
-
-        // gap: rem(50); // ← 隙間の原因になるので0にします
         gap: rem(50);
 
-        & .wave {
-            height: var(--display-height);
+        .wave {
             position: relative;
+            height: var(--display-height);
+            margin-bottom: -2px;
             overflow: hidden;
 
-            // 【重要】1〜2pxだけ下の波と重ねる
-            margin-bottom: -2px;
-
-            & svg {
+            svg {
                 position: absolute;
-                z-index: 3;
                 top: 0;
                 left: 0;
-
-                // 【重要】高さに少し余裕を持たせ、下部の隙間を消す
-                height: calc(100% + 2px);
-                width: 2400px;
-                will-change: transform;
-                fill: $blue-light;
-
-                // inline要素特有の隙間を防ぐ
                 display: block;
+                width: 2400px;
+                height: calc(100% + 2px);
+                fill: $blue-light;
+                will-change: transform;
+                z-index: 3;
             }
 
-            &.top {
-                & svg {
-                    animation: move-left $wave-speed linear infinite;
-                }
+            &.top svg {
+                animation: move-left $wave-speed linear infinite;
             }
 
-            &.bottom {
-
-                & svg {
-                    animation: move-right $wave-speed linear infinite;
-                }
+            &.bottom svg {
+                animation: move-right $wave-speed linear infinite;
             }
         }
     }
 }
 
 
+/* ========================================
+   セクション：島トゥクとは
+======================================== */
+
 .about {
-    margin-top: rem(250);
     position: relative;
-    overflow: hidden;
-    background-color: $color-main;
-    padding-top: rem(100);
-    padding-bottom: rem(200);
+    margin-top: rem(250);
     margin-bottom: rem(250);
+    padding-top: rem(50);
+    padding-bottom: rem(100);
+    background-color: $color-main;
+    overflow: hidden;
 
     &__inner {
         position: relative;
-        z-index: 2; // ← これでテキストを前面に
+        z-index: 2;
     }
 
+    // 背景画像（ぼかし）
     &::before {
         content: "";
         position: absolute;
         inset: 0;
-        background-image:
-            url("../img/image/28.jpg");
+        background-image: url("../img/image/28.jpg");
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
         filter: blur(3px);
-        transform: scale(1.1); // ぼかしによる欠け防止
+        transform: scale(1.1);
         z-index: 0;
     }
 
+    // オーバーレイ
     &::after {
         content: "";
         position: absolute;
         inset: 0;
-        background: rgba(0, 0, 0, 0.2); // ← 暗さ（0.4〜0.6くらいがちょうどいい）
+        background: rgba(0, 0, 0, 0.2);
         z-index: 1;
     }
 
     &__title {
-        font-family: "Tsukushi B Round Gothic", sans-serif;
-        font-weight: bold;
-        color: $color-white;
-        font-size: 32px;
-        text-align: center;
         margin-bottom: 100px;
-        text-shadow: 2px 2px 5px #272727;
+        @include title();
+        color: $color-white;
     }
 
     &__textbox {
-        text-align: center;
-        line-height: 3em;
         display: block;
         width: 100%;
-        font-family: $font-text;
-        padding: 18px 50px;
-        background-color: rgb($color-bg, 0.8);
-        white-space: pre-line;
-        color: $color-text-dark;
         margin: 0 auto;
-        font-size: rem(25);
-        font-family: "Tsukushi B Round Gothic", sans-serif;
+        padding: rem(10) 5%;
+        background-color: rgba($color-bg, 0.8);
+        color: $color-text-dark;
+        font-family: $font-primary;
+        font-size: clamp(16px, 3vw, 30px);
         font-weight: bold;
+        text-align: center;
+        white-space: pre-line;
     }
 }
 
+
+/* ========================================
+   セクション：景色の例
+======================================== */
+
 .vision-example {
     margin-bottom: rem(250);
+    background-color: $color-white;
+    padding-top: rem(30);
+    padding-bottom: rem(30);
 
     &__title {
-        @include title();
-
+        @include page-title();
     }
 
     &__image-area {
         position: relative;
-        height: rem(700);
         width: 100%;
-        background-color: $color-white;
+        height: rem(700);
 
-        & img {
+
+        img {
+            position: absolute;
+            top: 10%;
+            left: 50%;
             width: 100%;
             height: 80%;
-            max-width: rem(600);
-            position: absolute;
+            max-width: rem(800);
+            transform: translateX(-50%);
             object-fit: cover;
             transition: all 0.5s;
-            left: 50%;
-            top: 10%;
-            transform: translateX(-50%);
-
+            border-radius: rem(35);
+            outline: solid 3px rgb(35, 72, 255);
+            outline-offset: 7px;
         }
     }
 }
+
+
+/* ========================================
+   セクション：ご利用方法
+======================================== */
 
 .appointment-ex {
     margin-bottom: rem(250);
 
     &__inner {
         @include inner();
+        max-width: rem(800);
         text-align: right;
-        max-width: rem(1000);
     }
 
     &__title {
@@ -777,117 +796,91 @@ h2,
 
     &__textbox {
         display: block;
-        text-align: left;
-
         width: 100%;
-        font-family: $font-text;
+        max-width: rem(800);
+        margin: 0 auto;
         padding: 18px 50px;
+        background-color: $color-white;
         border: $color-text-dark 3px solid;
         border-radius: rem(30);
-        background-color: $color-white;
-        white-space: pre-line;
         color: $color-text-dark;
-        margin: 0 auto;
+        font-family: $font-text;
+        text-align: left;
+        white-space: pre-line;
     }
 
     &__link {
         display: inline-block;
-        margin: rem(30) 0;
-        border-bottom: #000 solid;
-    }
+        margin: rem(25) 0;
+        padding: rem(5) rem(15);
+        background: $color-accent;
+        color: $color-text-dark;
+        border-radius: rem(20);
+        border: 3px solid $color-text-dark;
+        font-weight: 900;
+        transition: all 0.3s ease;
 
-    &__fee {
-        width: 90%;
-        margin: rem(30) auto 0 auto;
-        display: grid;
-        grid-template-columns: 1fr;
-        row-gap: rem(50);
-        text-align: left;
-
-        @include mq(desktop) {
-
-            grid-template-columns: 1fr 1fr;
-            column-gap: rem(50);
-        }
-
-        & ul {
-            list-style: disc;
-            background-color: $color-white;
-            display: grid;
-            row-gap: rem(30);
-            border: $color-text-dark 3px solid;
-            border-radius: rem(30);
-            padding: rem(30);
-
+        &:hover {
+            animation: Linkup 0.5s ease-in-out forwards;
         }
     }
-
 }
 
 
+/* ========================================
+   セクション：お知らせ
+======================================== */
+
 .news {
-    margin-bottom: rem(250);
     width: 100%;
+    margin-bottom: rem(250);
 
     &__inner {
         @include mq(desktop) {
             @include inner();
         }
-
     }
 
     &__title {
         @include title();
     }
 
-
-
     &__box {
-        margin-left: 5%;
         display: grid;
         grid-auto-flow: column;
-        overflow-x: auto;
         column-gap: rem(20);
+        margin-left: 5%;
         margin-bottom: rem(100);
+        overflow-x: auto;
 
         @include mq(desktop) {
             margin-left: 0;
-
         }
 
-        & a {
-
-            & article {
-                width: rem(300);
-
-                @include mq(desktop) {}
-
-
-            }
+        a article {
+            width: rem(300);
         }
-
     }
 
     &__textbox {
-        background-color: $color-white;
         height: rem(200);
-        overflow: scroll;
+        background-color: $color-white;
+        padding: rem(10);
+        border-radius: 0 0 rem(20) rem(20);
     }
 
-    &__imgbox {
-
-
-        & img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-        }
+    &__imgbox img {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        border-radius: rem(20) rem(20) 0 0;
     }
 }
 
+// お知らせアーカイブ
 .news-archive {
-    padding: rem(250) 0;
     width: 100%;
+    padding: rem(250) 0;
 
     &__inner {
         @include inner();
@@ -898,7 +891,6 @@ h2,
     }
 
     &__grid {
-
         display: grid;
         grid-auto-flow: row;
         column-gap: rem(20);
@@ -907,60 +899,93 @@ h2,
 
         @include mq(desktop) {
             grid-template-columns: repeat(3, 1fr);
-
         }
 
-        & a {
+        a article {
+            width: 100%;
+            max-width: rem(600);
+            margin: 0 auto;
 
-            & article {
+            @include mq(desktop) {
+                max-width: rem(300);
+            }
+
+            img {
                 width: 100%;
-                max-width: rem(600);
-                margin: 0 auto;
+                height: 400px;
+                object-fit: cover;
 
                 @include mq(desktop) {
-                    max-width: rem(300);
-                }
-
-                & img {
-                    width: 100%;
-                    height: 400px;
-                    object-fit: cover;
-
-                    @include mq(desktop) {
-                        height: 200px;
-                    }
+                    height: 200px;
                 }
             }
         }
-
     }
 
     &__textbox {
-        background-color: $color-white;
         height: rem(200);
+        background-color: $color-white;
         overflow: scroll;
     }
-
-
-
-
 }
 
-.footer img {
-    width: 100%;
+// 個別記事
+.single-news {
+    padding: rem(250) 0;
 
+    &__title {
+        @include page-title();
+    }
+
+    &__date {
+        display: block;
+        margin-bottom: 30px;
+        font-size: 0.9rem;
+        opacity: 0.7;
+    }
+
+    &__thumb img {
+        width: 100%;
+        max-width: rem(800);
+        height: auto;
+        margin-bottom: 40px;
+    }
+
+    &__contents {
+        padding: rem(50) 5%;
+        background-color: $color-white;
+        text-align: center;
+        line-height: 1.8;
+
+        .content {
+            max-width: rem(800);
+            margin: 0 auto;
+
+            p {
+                max-width: rem(800);
+                text-align: left;
+            }
+        }
+    }
 }
+
+
+/* ========================================
+   フッター
+======================================== */
 
 .footer {
-
+    padding: rem(100) 0;
     background-color: #1C5E75;
     color: $color-white;
-    padding: rem(100) 0;
     text-align: center;
+
+    img {
+        width: 100%;
+    }
 
     &__inner {
         @include inner();
-
     }
 
     &__media {
@@ -970,18 +995,18 @@ h2,
         grid-auto-flow: row;
         row-gap: rem(50);
 
-        & a {
+        a {
             transition: all 0.5s linear;
+
+            &:hover {
+                transform: scale(105%);
+            }
         }
 
-        & a:hover {
-            transform: scale(105%);
-        }
-
-        & img {
+        img {
             width: 100%;
+            border-radius: rem(35);
         }
-
 
         &__SNS {
             display: grid;
@@ -989,43 +1014,51 @@ h2,
             column-gap: rem(50);
             align-items: center;
 
-            & .insta {
+            .insta {
                 display: block;
-                width: 40%; // 画像と同じ幅に揃える
+                width: 40%;
                 margin: 0 auto;
-            }
 
-            & .insta img {
-                width: 100%; // 親要素いっぱいに広げる
-                height: auto;
+                img {
+                    width: 100%;
+                    height: auto;
+                    border-radius: 0;
+                }
             }
-
         }
     }
 
     &__fnav {
         display: grid;
-        text-align: center;
         grid-auto-flow: column;
-        margin: rem(100) 0 rem(100) 0;
+        margin: rem(100) 0;
+        text-align: center;
 
-        & ul {
+        ul {
             display: grid;
-            border-right: $color-white solid;
-            border-left: $color-white solid;
-            padding: 0 rem(20);
             grid-auto-flow: row;
             row-gap: rem(40);
+            padding: 0 rem(20);
+            border-right: $color-white solid;
+            border-left: $color-white solid;
             font-weight: bold;
 
-            & a {
+            a {
                 transition: all 0.5s linear;
-            }
 
-            & a:hover {
-                color: $color-accent;
+                &:hover {
+                    color: $color-accent;
+                }
             }
         }
+    }
+
+    &__info {
+        padding: rem(30);
+        border: $color-white 2px solid;
+        border-radius: rem(20);
+        text-align: left;
+        line-height: 3;
     }
 
     &__copy {
@@ -1033,85 +1066,88 @@ h2,
         font-size: rem(12);
         font-weight: bold;
     }
-
-    &__info {
-        border-radius: rem(20);
-        border: $color-white 2px solid;
-        text-align: left;
-        padding: rem(30);
-        line-height: 3;
-    }
 }
 
+
+/* ========================================
+   ページ：予約
+======================================== */
+
 .appointment {
-    // 背景は海をイメージした青系、または砂浜をイメージしたベージュ系
     padding: rem(150) 0;
-    background-color: $blue-main;
 
     &__inner {
         @include inner();
+        padding: rem(60) 5%;
         background-color: rgba($color-white, 0.95);
-        padding: rem(60) rem(40);
         border-radius: rem(40);
         box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
     }
 
     &__title {
-        @include title();
-        margin-bottom: rem(60);
-        // 背景が白になるので、タイトルの色や影を調整
-        color: $blue-main;
-        text-shadow: 2px 2px 0px $color-accent;
+        @include inner();
+        @include page-title();
     }
 
     &__list {
-        list-style: none;
-        padding: 0;
         display: grid;
         row-gap: rem(30);
+        margin-bottom: rem(50);
+        padding: 0;
+        list-style: none;
 
         li {
+            position: relative;
             padding: rem(30);
             border-radius: rem(25);
             font-weight: bold;
             line-height: 1.8;
-            position: relative;
 
-            // 1番目：電話予約（重要なので目立たせる）
             &:nth-child(1) {
                 background-color: lighten($pink-bg, 35%);
                 border: 3px solid $pink-bg;
             }
 
-            // 2番目：サービス説明（爽やかに）
             &:nth-child(2) {
-                background-color: lighten($color-base, 20%);
+                background-color: lighten($blue-light, 20%);
                 border: 3px solid $color-base;
             }
         }
 
-        & p {
+        p {
             position: relative;
             display: inline-block;
-            text-align: left;
             padding-left: 50px;
+            text-align: left;
 
             &::before {
-                position: absolute;
                 content: "";
+                position: absolute;
                 left: 0;
                 display: block;
                 width: 30px;
                 height: 30px;
+                background-color: $blue-main;
                 border-radius: rem(5);
                 transition: all 0.4s linear;
-                background-color: $blue-main;
-
-                &:hover {
-                    transform: rotate(135deg*2+45);
-                    background-color: $color-white;
-                }
             }
+
+            &::before:hover {
+                transform: rotate(315deg);
+                background-color: $color-white;
+            }
+        }
+    }
+
+    .global-bottom__menu {
+        grid-template-columns: repeat(1, 1fr);
+        max-height: rem(350);
+        overflow-y: scroll;
+
+        @include mq(desktop) {
+            grid-template-columns: repeat(2, 1fr);
+            max-height: rem(500);
+            overflow-y: auto;
         }
     }
 
@@ -1120,24 +1156,15 @@ h2,
         text-align: left;
 
         &__textbox {
-            text-align: left;
-            background-color: $color-white;
-            display: flex;
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.5s ease, padding 0.5s ease;
-            background: #f0f0f0;
-            padding: 0 1rem;
-            justify-content: space-between;
-            margin-bottom: rem(150);
+            padding: rem(40);
             background-color: $color-bg;
             border-radius: 0 rem(25) rem(25) rem(25);
             text-align: left;
 
             ul li {
-                list-style: none;
                 padding: rem(10) 0;
                 border-bottom: 1px dashed darken($color-bg, 10%);
+                list-style: none;
 
                 &:last-child {
                     border-bottom: none;
@@ -1145,28 +1172,21 @@ h2,
 
                 p::before {
                     content: "●";
-                    color: $pink-bg;
                     margin-right: rem(10);
+                    color: $pink-bg;
                 }
-            }
-
-            &.show {
-                max-height: 700px;
-                padding: rem(40);
             }
         }
     }
 
     &__toggleBtn {
         display: inline-block;
+        padding: rem(10) rem(40);
         background-color: $color-accent;
         color: $color-text-dark;
-        padding: rem(10) rem(40);
-        border-radius: rem(50) rem(50) 0 0; // 上だけ角丸
         border: solid 3px $color-text-dark;
+        border-radius: rem(50) rem(50) 0 0;
         font-weight: bold;
-        cursor: pointer;
-        transition: 0.3s;
 
         &:hover {
             background-color: darken($color-accent, 10%);
@@ -1175,97 +1195,81 @@ h2,
 
     .linkBtn {
         margin-top: rem(60);
-        // すでに定義されているlinkBtnスタイルが当たります
         animation: big 3s ease-in-out infinite;
     }
 }
 
-.contact-form {
-    margin-bottom: rem(50);
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
 
-.form-item label {
-    display: block;
-    margin-bottom: 8px;
-    font-weight: bold;
-}
-
-.form-item input,
-.form-item textarea {
-    width: 100%;
-    padding: 10px;
-    background-color: $color-white;
-    border: 1px solid $color-text-dark;
-    border-radius: 6px;
-    font-size: 16px;
-}
-
-.form-item textarea {
-    height: 150px;
-    resize: vertical;
-}
-
-.form-submit {
-    display: block;
-    text-align: center;
-    width: rem(100);
-    padding: 12px 20px;
-    background-color: $color-white;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    font-size: 18px;
-}
-
-.form-submit:hover {
-    opacity: 0.8;
-}
-
-
-
-
-
-
-
+/* ========================================
+   ページ：コース
+======================================== */
 
 .root {
-    padding: rem(250) 0;
+    padding: rem(100) 0;
+
+    @include mq(desktop) {
+        padding: rem(250) 0;
+    }
 
     &__inner {
         @include inner();
     }
 
     &__title {
-        @include title();
+        @include page-title();
+        margin-bottom: rem(60);
+        text-align: center;
     }
 
     &__image {
-        width: 90%;
-        margin: 0 auto;
-        margin-bottom: rem(150);
+        width: 100%;
+        max-width: 500px;
+        margin: 0 auto rem(80);
+        padding: 0;
+        background-color: #bee4bf;
+        border-radius: rem(25);
+        outline: solid 3px rgb(58, 190, 51);
+        outline-offset: -7px;
+        text-align: center;
+        transition: opacity 0.3s ease;
 
+        @include mq(desktop) {
+            max-width: 1000px;
+        }
+
+        a:hover {
+            opacity: 0.8;
+        }
+
+        img {
+            width: 80%;
+        }
     }
 
     &__textbox {
-        margin-top: rem(100);
+        margin-top: rem(80);
+        padding: rem(40) rem(30);
         background-color: $color-white;
+        border-radius: rem(8);
 
-        padding: rem(50);
+        @include mq(desktop) {
+            padding: rem(60) rem(80);
+            margin-top: rem(100);
+        }
+
+        p {
+            margin: 0;
+            color: $color-text-dark;
+            line-height: 2;
+            letter-spacing: 0.05em;
+        }
     }
-
-
-
-
-
-
-
-
-
 }
 
+
+/* ========================================
+   ページ：スポット
+======================================== */
 
 .spot {
     padding: rem(250) 0;
@@ -1277,82 +1281,208 @@ h2,
     }
 
     &__title {
-        @include title();
+        @include inner();
+        @include page-title();
     }
 
-    & .unit {
-        border-top: $color-white dotted 3px;
-        padding-top: rem(80);
+    .unit {
+        padding: 10%;
+        background-color: $color-bg-yellow;
+        border-radius: rem(50);
+        outline: 3px solid rgb(103, 92, 255);
+        outline-offset: -10px;
 
         &__title {
             @include title();
+            margin-bottom: rem(20);
+            padding: 0.5em 0;
+            background-color: rgba($color-white, 0.95);
+            color: $blue-main;
+            border: 3px solid $blue-light;
+            border-radius: rem(100);
+            font-size: rem(30);
+            text-shadow: 2px 2px 0px $color-accent;
+
+            @include mq(desktop) {
+                font-size: rem(40);
+            }
         }
 
         &__box {
-            background-color: $color-white;
-            padding: 10%;
-            border-radius: rem(50);
-            max-width: rem(800);
             margin: 0 auto;
             text-align: center;
+
+            @include mq(desktop) {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                column-gap: rem(20);
+            }
         }
 
-
         &__img {
-
             width: 100%;
-            height: rem(300);
-            max-width: rem(500);
+            max-width: rem(275);
+            height: rem(350);
+            border-radius: rem(35);
             object-fit: cover;
 
             @include mq(desktop) {
-
-                max-width: rem(800);
+                max-width: rem(400);
                 height: rem(500);
-
             }
-
         }
 
         &__textbox {
-            text-align: left;
-            margin-top: rem(70);
+            margin-top: rem(30);
             padding: rem(18);
-            border-radius: rem(20);
+            background-color: $color-white;
             border: $color-base solid 5px;
+            border-radius: rem(20);
+            text-align: left;
+
+            @include mq(desktop) {
+                margin: 0;
+            }
         }
     }
-
 }
+
+
+/* ========================================
+   ページ：お問い合わせ
+======================================== */
 
 .access {
     padding: rem(100) 0;
 
     &__inner {
         @include inner();
-
     }
 
     &__title {
-        @include title();
+        @include page-title();
+    }
+
+    &__policy {
+        margin-top: rem(60);
+        padding: rem(30);
+        background-color: $color-white;
+        border: 1px solid darken($color-bg, 10%);
+        border-radius: rem(20);
+
+        &__title {
+            margin-bottom: rem(20);
+            color: $blue-dark;
+            font-family: $font-primary;
+            font-size: rem(22);
+            text-align: center;
+            position: relative;
+
+            &::after {
+                content: '';
+                display: block;
+                width: rem(50);
+                height: rem(3);
+                margin: rem(10) auto 0;
+                background-color: $blue-light;
+                border-radius: rem(10);
+            }
+        }
+
+        &__textbox {
+            margin-bottom: rem(20);
+            text-align: center;
+
+            p {
+                font-size: rem(14);
+                color: $color-text-dark;
+                line-height: 1.6;
+            }
+        }
+
+        &__listbox {
+            height: rem(250);
+            padding-top: rem(20);
+            padding-right: rem(15);
+            border-top: 1px solid #eee;
+            overflow-y: scroll;
+
+            &::-webkit-scrollbar {
+                width: 6px;
+            }
+
+            &::-webkit-scrollbar-track {
+                background: #f1f1f1;
+                border-radius: 10px;
+            }
+
+            &::-webkit-scrollbar-thumb {
+                background: #ccc;
+                border-radius: 10px;
+
+                &:hover {
+                    background: $color-base;
+                }
+            }
+
+            ul {
+                padding: 0;
+                list-style: none;
+
+                li {
+                    margin-bottom: rem(25);
+
+                    &:last-child {
+                        margin-bottom: 0;
+                    }
+                }
+            }
+
+            p {
+                padding-left: rem(22);
+                font-size: rem(14);
+                color: $color-text-dark;
+                line-height: 1.7;
+            }
+        }
+
+        &__subtitle {
+            display: flex;
+            align-items: center;
+            margin-bottom: rem(8);
+            color: $color-text-dark;
+            font-size: rem(16);
+            font-weight: bold;
+
+            &::before {
+                content: '■';
+                margin-right: rem(10);
+                color: $color-base;
+                font-size: rem(12);
+            }
+        }
+    }
+
+    .mw_wp_form_thanks+.appointment__policy {
+        display: none;
     }
 
     .contact-form {
-        background-color: lighten($color-bg, 5%);
         padding: rem(40);
-        border-radius: rem(30);
+        background-color: lighten($color-bg, 5%);
         border: 2px solid $color-base;
+        border-radius: rem(30);
 
         .form-item {
             margin-bottom: rem(25);
 
             label {
                 display: block;
-                font-family: $font-primary;
-                font-weight: bold;
-                color: $blue-dark;
                 margin-bottom: rem(10);
                 padding-left: rem(10);
+                color: $blue-dark;
+                font-family: $font-primary;
+                font-weight: bold;
             }
 
             input,
@@ -1367,8 +1497,8 @@ h2,
 
                 &:focus {
                     outline: none;
-                    border-color: $color-base; // 入力中に色がつく
                     background-color: #fff;
+                    border-color: $color-base;
                 }
             }
 
@@ -1382,11 +1512,11 @@ h2,
             width: 100%;
             max-width: rem(300);
             margin: rem(40) auto 0;
-            background-color: #DF0000; // 予約ボタンと同じ色
+            padding: rem(15);
+            background-color: $btn-red;
             color: $color-white;
             border: 4px solid $color-white;
             border-radius: rem(50);
-            padding: rem(15);
             font-size: rem(20);
             font-weight: bold;
             cursor: pointer;
@@ -1419,71 +1549,71 @@ h2,
     }
 
     .thanks-box {
-        text-align: center;
         padding: rem(40);
         background-color: $color-white;
-        border-radius: rem(30);
         border: 3px solid $color-base;
+        border-radius: rem(30);
+        text-align: center;
 
         &__message {
+            margin-bottom: rem(30);
+            color: $blue-dark;
             font-family: $font-primary;
             font-size: rem(24);
             font-weight: bold;
-            color: $blue-dark;
             line-height: 1.6;
-            margin-bottom: rem(30);
 
             span {
-                font-size: rem(16);
                 display: block;
                 margin-top: rem(10);
                 color: $color-text-dark;
+                font-size: rem(16);
             }
         }
     }
 }
 
 
+/* ========================================
+   ページ：アクセス
+======================================== */
 
 .info {
-    padding: rem(100) 0; // 他のセクションとの兼ね合いで調整
+    padding: rem(150) 0;
 
     &__inner {
         @include inner();
+        padding: rem(30);
         background-color: $color-white;
         border-radius: rem(40);
-        padding: rem(30);
     }
 
     &__title {
-        @include title();
-        margin-bottom: rem(60);
-        // 背景が白になるので、タイトルの色や影を調整
+        @include inner();
+        @include page-title();
+    }
+
+    .start {
         color: $blue-main;
-        text-shadow: 2px 2px 0px $color-accent;
-    }
-
-    & .start {
-        color: $blue-main; // 出発地をテーマカラーの青に
+        font-size: 1.3em;
         font-weight: 900;
-        font-size: 1.3em; // 少し大きく
     }
 
-    & .goal {
-        color: #DF0000; // ゴールを強調（赤やオレンジなど）
+    .goal {
+        color: $btn-red;
+        font-size: 1.3em;
         font-weight: 900;
-        font-size: 1.3em; // 少し大きく
-        background: linear-gradient(transparent 60%, $color-accent 60%); // 黄色のマーカー風
+        background: linear-gradient(transparent 60%, $color-accent 60%);
     }
 
-    & h3 {
-        font-family: $font-primary;
-        font-size: rem(28);
-        color: $blue-dark;
-        margin: rem(60) 0 rem(30);
+    h3 {
         display: flex;
         align-items: center;
         gap: rem(15);
+        margin: rem(60) 0 rem(30);
+        color: $blue-dark;
+        font-family: $font-primary;
+        font-size: rem(28);
 
         &::before {
             content: "";
@@ -1495,48 +1625,42 @@ h2,
         }
     }
 
-    & ul {
-        list-style: none;
-        padding: 0;
+    ul {
         display: grid;
-        row-gap: rem(25); // カード同士の間隔を少し広めに
+        row-gap: rem(25);
+        padding: 0;
+        list-style: none;
 
-        & li {
+        li {
             position: relative;
             padding: rem(20) rem(30);
-            border-radius: rem(20);
-            line-height: 1.8;
-            font-weight: bold;
-            color: $color-text-dark;
             border: 2px solid transparent;
+            border-radius: rem(20);
+            color: $color-text-dark;
+            font-weight: bold;
+            line-height: 1.8;
             transition: transform 0.3s ease;
 
-            // --- 各ルートの色分け ---
-
-            // 1つ目のルート（例：東京・豊橋方面）
             &:nth-child(1) {
-                background-color: lighten($color-base, 20%);
+                background-color: lighten($blue-light, 20%);
                 border-color: $color-base;
             }
 
-            // 2つ目のルート（例：名古屋・大阪方面）
             &:nth-child(2) {
                 background-color: lighten($color-main, 5%);
                 border-color: darken($color-main, 10%);
             }
 
-            // 3つ目以降（車ルートなどが増えた場合）
             &:nth-child(3) {
-                background-color: #e0f7fa; // 爽やかなミント系
+                background-color: #e0fae1;
                 border-color: #4dd0e1;
             }
 
             &:nth-child(4) {
-                background-color: #fce4ec; // 優しいピンク系
+                background-color: #fce4ec;
                 border-color: #f06292;
             }
 
-            // 三角マーク（::after）を完全に削除
             &::after {
                 display: none !important;
             }
@@ -1546,49 +1670,45 @@ h2,
     &__gmap {
         position: relative;
         width: 100%;
-        border: $blue-main dotted 5px;
-        padding-top: 56.25%;
-        /* 16:9のアスペクト比の再現 */
         height: 0;
+        padding-top: 56.25%;
         margin: rem(30) 0;
+        border: $blue-main dotted 5px;
 
-        & iframe {
+        iframe {
             position: absolute;
             top: 2.5%;
             left: 2.5%;
             width: 95%;
             height: 95%;
-
         }
     }
 
-    // 船の時刻表ボタン
-    & a[href*="meikaijo"] {
+    a[href*="meikaijo"] {
         display: inline-block;
+        padding: rem(15) rem(40);
         background-color: $btn-red;
         color: $color-white;
-        padding: rem(15) rem(40);
-        border-radius: rem(50);
-        text-decoration: none;
-        font-weight: bold;
-        transition: transform 0.3s ease;
         border: 3px solid $color-white;
+        border-radius: rem(50);
+        font-weight: bold;
+        text-decoration: none;
         box-shadow: 0 4px 0 $color-text-dark;
+        transition: transform 0.3s ease;
 
         &:hover {
             transform: translateY(-3px);
-            background-color: lighten(#DF0000, 10%);
+            background-color: lighten($btn-red, 10%);
         }
     }
 }
 
 
-
-
+/* ========================================
+   ページ：Q&A
+======================================== */
 
 .qa {
-    // 背景はセクション共通のイメージに合わせる
-    background-color: $blue-main;
     padding: rem(100) 0;
 
     &__inner {
@@ -1596,130 +1716,92 @@ h2,
     }
 
     &__title {
-        @include title();
-        margin-bottom: rem(60);
-        // 背景が白になるので、タイトルの色や影を調整
-        color: $blue-main;
-        text-shadow: 2px 2px 0px $color-accent;
-        background-color: rgba($color-white, 0.95);
-        border-radius: rem(100);
+        @include page-title();
+    }
+
+    &__groups {
+        padding: rem(50) 0;
+        background-color: $color-white;
+        border-radius: rem(35);
     }
 
     &__group {
-
-        padding: rem(50);
-        border-radius: rem(35);
+        margin: rem(30);
+        padding: rem(50) rem(10);
         border: solid 3px;
+        border-radius: rem(35);
 
-        &:nth-child(even) {
-            background-color: lighten($color-base, 20%);
-            border-color: $color-base;
-            margin-bottom: rem(50);
+        @include mq(desktop) {
+            padding: rem(50);
         }
 
         &:nth-child(odd) {
-            background-color: lighten($blue-light, 5%);
-            border-color: darken($color-main, 10%);
+            background-color: lighten($blue-light, 20%);
+            border-color: $color-base;
         }
 
+        &:nth-child(even) {
+            background-color: lighten($color-main, 5%);
+            border-color: darken($color-main, 10%);
+        }
     }
 
-
-    & .item {
+    .item {
         display: grid;
         grid-auto-flow: row;
         row-gap: rem(50);
 
-
-
         &__qanda {
             display: grid;
-            grid-template-columns: 1fr 3fr;
-            column-gap: rem(20);
+            grid-auto-flow: row;
+            row-gap: rem(30);
+
+            @include mq(desktop) {
+                grid-template-columns: 1fr 3fr;
+                column-gap: rem(20);
+            }
         }
 
-
         &__textbox {
-            background-color: $color-white;
-            padding: rem(40);
             position: relative;
-            align-content: center;
+            padding: rem(40);
+            background-color: $color-white;
             border: $color-text-dark 3px solid;
+            border-radius: rem(30);
+            align-content: center;
 
-            & a {
+            a {
                 border-bottom: $color-text-dark solid;
             }
-
-            border-radius: rem(30); // ← 円ではなく角丸四角に
 
             &::after {
                 content: "";
                 position: absolute;
-
+                top: -5%;
+                left: rem(30);
                 width: rem(30);
                 height: rem(30);
-
                 background-color: $color-white;
-                transform: rotate(45deg);
                 border-bottom: solid $color-text-dark 3px;
                 border-left: solid $color-text-dark 3px;
+                transform: rotate(135deg);
 
-                left: rem(-10); // ← 少し外に出す
-                top: 15%;
+                @include mq(desktop) {
+                    top: 15%;
+                    left: rem(-10);
+                    transform: rotate(45deg);
+                }
             }
         }
 
         &__imgbox {
-            align-content: top;
-            text-align: center;
             max-width: rem(200);
+            text-align: center;
+            align-content: top;
 
-            & img {
+            img {
                 width: 70%;
             }
         }
     }
-
-}
-
-
-.single-news {
-    padding: rem(250) 0;
-
-    &__title {
-        @include title();
-    }
-
-    &__date {
-        display: block;
-        font-size: 0.9rem;
-        opacity: 0.7;
-        margin-bottom: 30px;
-    }
-
-    &__thumb img {
-        width: 100%;
-        height: auto;
-        max-width: rem(800);
-        margin-bottom: 40px;
-    }
-
-    &__contents {
-        padding: rem(50) 5%;
-        text-align: center;
-        line-height: 1.8;
-        background-color: $color-white;
-
-        & .content {
-            max-width: rem(800);
-            margin: 0 auto;
-
-            & p {
-                max-width: rem(800);
-                text-align: left;
-            }
-        }
-
-    }
-
 }

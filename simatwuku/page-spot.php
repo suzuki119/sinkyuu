@@ -32,12 +32,14 @@
 
                 <article class="spot__group unit">
                     <h3 class="unit__title">たこのモニュメント</h3>
+
                     <div class="unit__box">
                         <img src="<?php echo get_template_directory_uri(); ?>/img/view/IMG_0503.jpg" alt="" class="unit__img">
                         <div class="unit__textbox">
                             <p>東と西、どちらにも置かれているたこのモニュメントです。東にいるのが「がっしー」、西にいるのは「にっしー」で、モニュメントのどこかにはハートマークが隠されています。</p>
                         </div>
                     </div>
+                    
                 </article>
 
                 <article class="spot__group unit">
