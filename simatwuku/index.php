@@ -1,4 +1,12 @@
 <?php get_header();?>
+
+<!-- <div class="background-container">
+  <div class="bg-item item1"></div>
+  <div class="bg-item item2"></div>
+  <div class="bg-item item3"></div>
+  <div class="bg-item item4"></div>
+</div> -->
+
 <section class="global-bottom">
     <div class="global-bottom__inner">
 
@@ -54,9 +62,23 @@
         </div>
 </section>
 
-    <main class="main">
+<div class="cloud-wipe-container" id="cloudWipe">
+            <div class="cloud-layer cloud-left">
+                <div class="cloud-item"></div>
+                <div class="cloud-item"></div>
+                <div class="cloud-item"></div>
+            </div>
+            <div class="cloud-layer cloud-right">
+                <div class="cloud-item"></div>
+                <div class="cloud-item"></div>
+                <div class="cloud-item"></div>
+            </div>
+        </div>
+<main class="main">
         <section class="mainvisual">
             <div class="mainvisual__inner">
+
+
 
 
 <div class="mainvisual__copy">
@@ -154,7 +176,7 @@
 
                                         </div>
                 <a href="<?php echo home_url('/appointment'); ?>" class="appointment-ex__link">更に詳しく＞</a>
-                <a href="tel:080-4223-3450" class="appointment-ex appointment-Btn linkBtn">予約</a>
+                <a href="tel:080-4223-3450" class="appointment-Btn linkBtn">予約</a>
 
 
 

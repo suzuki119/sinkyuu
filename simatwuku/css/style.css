@@ -126,6 +126,100 @@
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
   }
 }
+.background-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  /* コンテンツの背後に配置 */
+  overflow: hidden;
+  background-color: #008cff;
+  /* 背景色 */
+}
+
+.bg-item {
+  position: absolute;
+  background-size: contain;
+  background-repeat: no-repeat;
+  opacity: 0.6;
+  /* 少し透かすとおしゃれです */
+}
+
+.item1 {
+  width: 50%;
+  height: 50%;
+  bottom: 15%;
+  right: -25%;
+  background-image: url("../img/back/back_1.png");
+  -webkit-animation: rotate 10s linear infinite;
+          animation: rotate 10s linear infinite;
+}
+
+.item2 {
+  width: 50%;
+  height: 50%;
+  bottom: 45%;
+  left: 5%;
+  background-image: url("../img/back/back_2.png");
+  -webkit-animation: rotate 10s linear infinite;
+          animation: rotate 10s linear infinite;
+}
+
+.item3 {
+  width: 175px;
+  height: 175px;
+  bottom: 30%;
+  right: 50%;
+  background-image: url("../img/back/back_3.png");
+  -webkit-animation: rotate 10s linear infinite;
+          animation: rotate 10s linear infinite;
+}
+
+.item4 {
+  width: 175px;
+  height: 175px;
+  bottom: 30%;
+  right: 50%;
+  background-image: url("../img/back/back_4.png");
+  -webkit-animation: rotate 10s linear infinite;
+          animation: rotate 10s linear infinite;
+}
+
+/* アニメーションの内容 */
+@-webkit-keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+@-webkit-keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
 /* ========================================
    ベーススタイル
 ======================================== */
@@ -138,6 +232,69 @@ html {
   scroll-behavior: smooth;
 }
 
+.ad {
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.mainvisual {
+  height: 200vh;
+  /* スクロールできる「遊び」を作るために高めに設定 */
+  position: relative;
+  transition: all 0.5s;
+}
+
+.cloud-wipe-container {
+  position: fixed;
+  /* スクロール中も画面に固定 */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 500;
+  display: flex;
+  /* 雲が閉じきった後に背景が白くなるように */
+  background: rgba(255, 255, 255, 0);
+  transition: all 0.3s;
+}
+
+.cloud-layer {
+  position: absolute;
+  top: 0;
+  width: 140%;
+  height: 130vh;
+  /* ここに雲の画像を背景として入れる */
+  background: url(../img/icon/cloud.png) repeat;
+  background-size: contain;
+}
+@media (min-width: 1100px) {
+  .cloud-layer {
+    background-size: 50%;
+  }
+}
+
+.cloud-item {
+  width: 100%;
+  height: 50%;
+  background-size: 100%;
+}
+
+.cloud-left {
+  left: 0;
+  top: -100px;
+  transform: translateX(-100%);
+  /* 最初は左の外 */
+  /* background-image: url('cloud-left.png'); */
+}
+
+.cloud-right {
+  right: 0;
+  transform: translateX(100%);
+  /* 最初は右の外 */
+  /* background-image: url('cloud-right.png'); */
+}
+
 body {
   overflow-x: hidden;
   font-family: "Zen Kaku Gothic Antique", sans-serif;
@@ -145,10 +302,16 @@ body {
   color: #000;
   line-height: 2;
   letter-spacing: 0.1em;
-  background: url(../img/back.png) repeat-y;
+  background: url(../img/back_s.png);
   background-size: 100%;
   word-wrap: break-word;
   overflow-wrap: break-word;
+}
+@media (min-width: 1100px) {
+  body {
+    background: url(../img/back_d.png);
+    background-size: 100%;
+  }
 }
 body.is-fixed {
   overflow: hidden;
@@ -452,7 +615,7 @@ h2,
 .mainvisual {
   position: relative;
   width: 100%;
-  margin-bottom: 6.25rem;
+  margin-bottom: 1200px;
   overflow: hidden;
   background: linear-gradient(-45deg, #ff8d6a, #ff428a, #90e1ff, #92ffe6);
   background-size: 400% 400%;
@@ -571,7 +734,7 @@ h2,
 ======================================== */
 .about {
   position: relative;
-  margin-top: 15.625rem;
+  margin-top: 0;
   margin-bottom: 15.625rem;
   padding-top: 3.125rem;
   padding-bottom: 6.25rem;
@@ -674,6 +837,7 @@ h2,
    セクション：ご利用方法
 ======================================== */
 .appointment-ex {
+  margin-top: 50rem;
   margin-bottom: 15.625rem;
 }
 .appointment-ex__inner {

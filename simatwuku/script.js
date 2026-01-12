@@ -7,36 +7,7 @@ document.addEventListener('DOMContentLoaded', function () {
        ----------------- */
 
 
-    /* -----------------
-       root page (map切替)
-       ----------------- */
-    if (document.body.classList.contains("page-root")) {
-        const rootimg = document.querySelector(".root__image img");
-        if (rootimg) {
-            function checkWidth() {
-                if (window.innerWidth >= 1100) {
-                    // 1100px以上のときの処理
-                    if (typeof themeVars !== 'undefined' && themeVars.themeUrl) {
-                        rootimg.src = themeVars.themeUrl + "/img/map/d_map.png";
-                    } else {
-                        // フォールバック（相対パス）
-                        rootimg.src = "/wp-content/themes/" + document.querySelector('body').dataset.theme + "/img/map/d_map.png";
-                    }
-                    console.log("1100px以上です");
-                } else {
-                    console.log("1100px未満です");
-                    if (typeof themeVars !== 'undefined' && themeVars.themeUrl) {
-                        rootimg.src = themeVars.themeUrl + "/img/map/s_map.png";
-                    } else {
-                        rootimg.src = "/wp-content/themes/" + document.querySelector('body').dataset.theme + "/img/map/s_map.png";
-                    }
-                }
-            }
 
-            window.addEventListener("resize", checkWidth);
-            checkWidth();
-        }
-    }
 
     /* -----------------
        index: 画像切替
@@ -114,7 +85,7 @@ document.addEventListener('DOMContentLoaded', function () {
             function runSequence() {
                 const img = images[index];
                 img.style.animation = "none";
-                void img.offsetWidth; // リフロー
+                void img.offsetWidth;
 
                 const randomX = Math.random() * 100 - 20;
                 let randomRotate = Math.floor(Math.random() * 2);
@@ -165,7 +136,6 @@ document.addEventListener('DOMContentLoaded', function () {
         toggle.addEventListener('click', () => {
             menu.classList.toggle('is-open');
             toggle.classList.toggle('is-open');
-
         });
 
         window.addEventListener('DOMContentLoaded', () => {
@@ -175,7 +145,52 @@ document.addEventListener('DOMContentLoaded', function () {
                 const vh = window.innerHeight;
                 mv.style.height = `${vh}px`;
             }
+
         });
+
+        window.addEventListener('scroll', () => {
+            const cloudContainer = document.getElementById('cloudWipe');
+            const cloudLeft = cloudContainer.querySelector('.cloud-left');
+            const cloudRight = cloudContainer.querySelector('.cloud-right');
+            const mv = document.querySelector('.mainvisual');
+
+
+            // アニメーションを動かす範囲（メインビジュアルの高さ分など）
+            const scrollMax = window.innerHeight;
+            const scrollY = window.scrollY;
+
+            // 進捗率を 0 ～ 1 の間で計算
+            let progress = Math.min(scrollY / scrollMax, 1);
+
+            // 雲の移動（-100% から 0% へ、100% から 0% へ）
+            const leftMove = -100 + (progress * 200);
+            const rightMove = 100 - (progress * 200);
+
+            cloudLeft.style.transform = `translateX(${leftMove}%)`;
+            cloudRight.style.transform = `translateX(${rightMove}%)`;
+
+            // 雲が閉じきった（進捗100%）ら、コンテナ自体を少し透過させて背景に馴染ませる
+            if (progress >= 0.4) {
+                mv.style.display = "none";
+            }
+            else {
+                mv.style.display = "block";
+            }
+        });
+
+        window.addEventListener('scroll', () => {
+            const mainvisual = document.querySelector('.mainvisual');
+            const scrollThreshold = window.innerHeight; // 100vhスクロールしたら解除
+
+            if (window.scrollY >= scrollThreshold) {
+
+            } else {
+                mainvisual.style.position = 'fixed';
+                mainvisual.style.top = '0';
+            }
+        });
+
+
 
 
 
